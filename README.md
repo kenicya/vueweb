@@ -1,5 +1,6 @@
-##前端vue框架项目使用教程
-###学习内容
+# 前端vue框架项目使用教程
+
+## 学习内容
 
  1. [vuejs][1]
 
@@ -18,7 +19,7 @@
   [3]: http://element.eleme.io/#/zh-CN/component/installation
   [4]: http://echarts.baidu.com/
   
-###使用vue项目过程
+## 使用vue项目过程
  
  1. 再github仓库拉取源码 https://github.com/kenicya/vueweb
  2. 进入源码目录
