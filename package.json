@@ -11,9 +11,11 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "echarts": "^4.1.0",
     "element-ui": "^2.4.3",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "wind-dom": "0.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
