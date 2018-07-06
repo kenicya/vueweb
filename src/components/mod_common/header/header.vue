@@ -43,15 +43,27 @@ let navs = [{
         text: '产品',
         name: 'prod',
         subnav: [{
-            text: '产品1',
-            name: 'prodIndex'
+            text: '性能压测',
+            name: 'pressureTest'
         },{
-            text: '产品2',
-            name: 'prodDetail'
+            text: 'UI测试',
+            name: 'UITest',
+        },{
+            text: '功能测试',
+            name: 'SystemTest'
         }]
     }, {
         text: '专栏',
         name: 'columns'
+    }, {
+        text: '核心技术',
+        name: 'tech',
+    }, {
+        text: '帮助中心',
+        name: 'help',
+    }, {
+        text: '关于我们',
+        name: 'aboutus',
     }];
 
 export default {
