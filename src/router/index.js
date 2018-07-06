@@ -2,22 +2,34 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '@/components/home'
-import subpage from '@/components/subpage'
+import home from '@/components/mod_home/index'
+import prodIndex from '@/components/mod_prod/index'
+import prodDetail from '@/components/mod_prod/detail'
+import columns from '@/components/mod_columns/index'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: home
     },
     {
-      path: '/subpage',
-      name: 'subpage',
-      component: subpage
+      path: '/prodIndex',
+      name: 'prodIndex',
+      component: prodIndex
+    },
+    {
+      path: '/prodDetail',
+      name: 'prodDetail',
+      component: prodDetail
+    },
+    {
+      path: '/columns',
+      name: 'columns',
+      component: columns
     }
   ]
 })

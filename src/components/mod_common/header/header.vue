@@ -2,27 +2,19 @@
     <div class="header-wrap">
         <div class="container">
             <el-menu :default-active="activeIndex"
-                class="el-menu-demo"
                 mode="horizontal"
+                :router="isRouter"
                 @select="handleSelect"
                 text-color="#fff"
                 background-color="#131e2a"
                 active-text-color="#ffd04b">
-                <el-menu-item index="1">处理中心</el-menu-item>
-                    <el-submenu index="2">
-                        <template slot="title">我的工作台</template>
-                        <el-menu-item index="2-1">选项1</el-menu-item>
-                        <el-menu-item index="2-2">选项2</el-menu-item>
-                        <el-menu-item index="2-3">选项3</el-menu-item>
-                        <el-submenu index="2-4">
-                            <template slot="title">选项4</template>
-                            <el-menu-item index="2-4-1">选项1</el-menu-item>
-                            <el-menu-item index="2-4-2">选项2</el-menu-item>
-                            <el-menu-item index="2-4-3">选项3</el-menu-item>
-                        </el-submenu>
-                    </el-submenu>
-                <el-menu-item index="3" disabled>消息中心</el-menu-item>
-                <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
+                <el-menu-item v-for="nav in navs" v-if="!nav.subnav" :index="nav.name">
+                    {{nav.text}}
+                </el-menu-item> 
+                <el-submenu v-else :index="nav.name">
+                    <template slot="title">{{nav.text}}</template>
+                    <el-menu-item v-for="subnav in nav.subnav" :index="subnav.name">{{subnav.text}}</el-menu-item>
+                </el-submenu>
             </el-menu>
         </div>
     </div>
@@ -38,17 +30,49 @@
  * 页面头部入口，导航、登录信息等
  */
 
+
+/**
+ * name: 作为当前导航选中状态的标志,并且作为点击跳转的路由，和router/index.js中的path保持一致
+ * text: 文字
+ */
+
+let navs = [{
+        text: '首页',
+        name: 'home'
+    }, {
+        text: '产品',
+        name: 'prod',
+        subnav: [{
+            text: '产品1',
+            name: 'prodIndex'
+        },{
+            text: '产品2',
+            name: 'prodDetail'
+        }]
+    }, {
+        text: '专栏',
+        name: 'columns'
+    }];
+
 export default {
     name: 'ComHeader',
     data() {
         return {
-            activeIndex: '1',
-            activeIndex2: '1'
+            activeIndex: 'home',
+            isRouter: true
         };
     },
     methods: {
-        handleSelect(key, keyPath) {
-            console.log(key, keyPath);
+        handleSelect(active) {
+            this.activeIndex = active;
+        }
+    },
+    computed: {
+        navs () {
+            let me = this;
+            return navs.map(function (nav) {
+                return nav;
+            });
         }
     }
 }
