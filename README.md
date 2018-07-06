@@ -1,21 +1,37 @@
-# web
+#前端vue框架项目使用教程#
+##学习内容##
 
-> A Vue.js project
+ 1. [vuejs][1]
 
-## Build Setup
 
-``` bash
-# install dependencies
+ 2. vue-cli脚手架（vue前端项目脚手架）
+ 3. webpack认识,非重要
+ 4. [es6语法，就是js的新语法][2]
+ 5. [element-ui][3]，按照文档使用组件
+ 6. [echart图表][4]
+ 7. 基础css、html
+ 8. nodejs认识，主要就是使用npm做包依赖安装
+
+
+  [1]: https://cn.vuejs.org/v2/guide/installation.html
+  [2]: http://es6.ruanyifeng.com/#docs/async
+  [3]: http://element.eleme.io/#/zh-CN/component/installation
+  [4]: http://echarts.baidu.com/
+  
+##使用vue项目过程##
+ 
+ 1. 再github仓库拉取源码 https://github.com/kenicya/vueweb
+ 2. 进入源码目录
+```javascript
+# 安装依赖包
 npm install
 
-# serve with hot reload at localhost:8080
+# 再浏览器打开项目，地址为 localhost:8080
 npm run dev
 
-# build for production with minification
+# build for production 
 npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+3. 项目跑起来就可以开始编码啦
