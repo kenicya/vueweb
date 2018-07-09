@@ -1,21 +1,29 @@
 <template>
     <div class="header-wrap">
         <div class="container">
-            <el-menu :default-active="activeIndex"
-                mode="horizontal"
-                :router="isRouter"
-                @select="handleSelect"
-                text-color="#fff"
-                background-color="#131e2a"
-                active-text-color="#ffd04b">
-                <el-menu-item v-for="nav in navs" v-if="!nav.subnav" :index="nav.name">
-                    {{nav.text}}
-                </el-menu-item> 
-                <el-submenu v-else :index="nav.name">
-                    <template slot="title">{{nav.text}}</template>
-                    <el-menu-item v-for="subnav in nav.subnav" :index="subnav.name">{{subnav.text}}</el-menu-item>
-                </el-submenu>
-            </el-menu>
+            <el-row>
+              <el-col :span="20">
+                    <el-menu :default-active="activeIndex"
+                        mode="horizontal"
+                        :router="isRouter"
+                        @select="handleSelect"
+                        text-color="#fff"
+                        background-color="#131e2a"
+                        active-text-color="#ffd04b">
+                        <el-menu-item v-for="nav in navs" v-if="!nav.subnav" :index="nav.name">
+                            {{nav.text}}
+                        </el-menu-item> 
+                        <el-submenu v-else :index="nav.name">
+                            <template slot="title">{{nav.text}}</template>
+                            <el-menu-item v-for="subnav in nav.subnav" :index="subnav.name">{{subnav.text}}</el-menu-item>
+                        </el-submenu>
+                    </el-menu>
+                </el-col>
+                <el-col :span="4" class="header-member">
+                    <a href="#/login">登陆</a>|
+                    <a href="">注册</a>
+                </el-col>
+            </el-row>
         </div>
     </div>
 </template>
@@ -23,7 +31,15 @@
 .header-wrap{
     background-color: #131e2a;
 }
-
+.header-wrap .el-menu--horizontal{
+    border-bottom: none;
+}
+.header-member{
+    line-height: 60px;
+}
+.header-member a{
+    color: #fff;
+}
 </style>
 <script>
 /**
