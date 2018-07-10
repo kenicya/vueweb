@@ -6,7 +6,7 @@
       </el-carousel-item>
     </el-carousel>
     <div>
-      <h1>hhhhhhhh</h1>
+        <img src="/static/img/5.png" alt="">
       <h2>hhhhhhh</h2>
       <p>hhhhhhhhhhhhhhhhhhhhhh</p>
       <ul>

@@ -8,16 +8,16 @@
             <el-col :span="6">
               <el-input v-model="form.name"></el-input>
             </el-col">
-              </el-form-item>
-                <el-form-item label="密码">
-                  <el-col :span="6">
-                    <el-input v-model="form.passworl"></el-input>
-                  </el-col>
-                  </el-select>
-                </el-form-item>
-              <el-form-item>
-            <el-button type="primary" @click="onSubmit">登录</el-button>
-            <el-button>注册</el-button>
+          </el-form-item>
+            <el-form-item label="密码">
+              <el-col :span="6">
+                <el-input v-model="form.passworl"></el-input>
+              </el-col>
+              </el-select>
+            </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <el-button>返回</el-button>
           </el-form-item>
         </el-form>  
       </div>

@@ -21,7 +21,7 @@
                 </el-col>
                 <el-col :span="4" class="header-member">
                     <a href="#/login">登陆</a>|
-                    <a href="">注册</a>
+                    <a href="#/register">注册</a>
                 </el-col>
             </el-row>
         </div>
@@ -59,27 +59,24 @@ let navs = [{
         text: '产品',
         name: 'prod',
         subnav: [{
-            text: '性能压测',
+            text: '压力测试',
             name: 'pressureTest'
         },{
-            text: 'UI测试',
+            text: '协议测试',
             name: 'UITest',
         },{
-            text: '功能测试',
+            text: '性能测试',
             name: 'SystemTest'
+        },{
+            text: '弱网测试',
+            name: 'NetTest'
         }]
     }, {
-        text: '专栏',
+        text: '下载中心',
         name: 'columns'
     }, {
-        text: '核心技术',
+        text: '用户反馈',
         name: 'tech',
-    }, {
-        text: '帮助中心',
-        name: 'help',
-    }, {
-        text: '关于我们',
-        name: 'aboutus',
     }];
 
 export default {
