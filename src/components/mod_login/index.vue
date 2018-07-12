@@ -1,5 +1,6 @@
 <template>
   <div class="hander">
+    <el-row>
     <el-col :span="24" class="header-member"></el-col>
       <div class="container">
         <el-form ref="form" :model="form" label-width="600px">
@@ -8,7 +9,7 @@
               <el-input v-model="form.name"></el-input>
             </el-col">
           </el-form-item>
-            <el-form-item label="密码">
+            <el-form-item label="用户密码">
               <el-col :span="8">
                 <el-input v-model="form.passworl"></el-input>
               </el-col>              
@@ -19,6 +20,7 @@
             </el-form-item>
         </el-form>  
       </div>
+    </el-row>
   </div>
 </template>
 

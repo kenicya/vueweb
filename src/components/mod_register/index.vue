@@ -1,31 +1,19 @@
 <template>
-  <div class="hander">
-    <el-col :span="24" class="header-member"></el-col>         
+  <div class="container">
+    <el-row>               
       <div class="container">
-        <el-form ref="form" :model="form" label-width="600px">
-          <el-form-item label="用户名">
-            <el-col :span="8">
-              <el-input v-model="form.name"></el-input>
-            </el-col">
-          </el-form-item>
-            <el-form-item label="输入密码">
-              <el-col :span="8">
-                <el-input input type="password" v-model="form.passworl"></el-input>
-              </el-col>
-              </el-select>
+        <el-col :span="12">
+          <img src="/static/img/register1.png" alt="">                  
+        </el-col> 
+        <el-col :span="12">
+          <el-form ref="form" :model="form" label-width="70px">
+            <el-form-item label="用户名">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
             </el-form-item>
-            <el-form-item label="确认密码">
-              <el-col :span="8">
-                <el-input input type="password" v-model="form.passworl"></el-input>
-              </el-col>
-              </el-select>
-            </el-form-item>            
-            <el-form-item>
-              <el-button type="primary" @click="onSubmit">提交</el-button>
-              <el-button>返回</el-button>
-          </el-form-item> 
-        </el-form>  
+          </el-form>          
+        </el-col>
       </div>
+    </el-row>
   </div>
 </template>
 <style>
