@@ -5,15 +5,21 @@
         <img :src="`/static/img/${item}.png`">
       </el-carousel-item>
     </el-carousel>
-    <div>
+    <div class="cont_title" >
+        <h3>了解我们的热门产品</h3>
+    </div>
+    <div class="container" margin-top="60px">
         <img src="/static/img/5.png" alt="">
-      <h2>hhhhhhh</h2>
-      <p>hhhhhhhhhhhhhhhhhhhhhh</p>
-      <ul>
-        <li>列表</li>
-        <li>列表</li>
-        <li>列表 <a href="">链接</a></li>
-      </ul> 
+        <img src="/static/img/7.png" alt="">
+        <img src="/static/img/5.png" alt="">
+        <img src="/static/img/7.png" alt="">
+    </div> 
+    <div class="container">
+      <el-carousel :interval="4000" type="card" height="300px">
+        <el-carousel-item v-for="item in 6" :key="item">
+          <img :src="`/static/img/${item}.png`">
+        </el-carousel-item>
+      </el-carousel>                        
     </div>
   </div>
 </template>

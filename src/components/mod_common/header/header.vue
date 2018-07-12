@@ -2,7 +2,10 @@
     <div class="header-wrap">
         <div class="container">
             <el-row>
-              <el-col :span="20">
+                <el-col :span="5">
+                   <img src="/static/img/home.png" alt="">     
+                </el-col>                
+              <el-col :span="15">
                     <el-menu :default-active="activeIndex"
                         mode="horizontal"
                         :router="isRouter"
@@ -20,11 +23,12 @@
                     </el-menu>
                 </el-col>
                 <el-col :span="4" class="header-member">
-                    <a href="#/login">登陆</a>|
+                    <a href="#/login">登陆</a>
+                    <a> | </a>
                     <a href="#/register">注册</a>
                 </el-col>
             </el-row>
-        </div>
+        </div> 
     </div>
 </template>
 <style>
@@ -35,7 +39,7 @@
     border-bottom: none;
 }
 .header-member{
-    line-height: 60px;
+    line-height: 65px;
 }
 .header-member a{
     color: #fff;
