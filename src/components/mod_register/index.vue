@@ -5,11 +5,18 @@
         <el-col :span="12">
           <img src="/static/img/register1.png" alt="">                  
         </el-col> 
-        <el-col :span="12">
-          <el-form ref="form" :model="form" label-width="70px">
+        <el-col :span="8" class="reg-form">
+          <el-form ref="form" :model="form" label-width="100px" >
             <el-form-item label="用户名">
-              <el-input v-model="input" placeholder="请输入内容"></el-input>
+              <el-input v-model="form.name" placeholder="请输入内容"></el-input>
             </el-form-item>
+            <el-form-item label="输入密码">
+              <el-input v-model="form.name" placeholder="请输入内容"></el-input>
+            </el-form-item>  
+            <el-form-item label="确认密码">
+              <el-input v-model="form.name" placeholder="请输入内容"></el-input>
+            </el-form-item>  
+            <el-button type="primary" @click="onSubmit" class="reg-btn">注册</el-button>                              
           </el-form>          
         </el-col>
       </div>
@@ -34,6 +41,14 @@
 
   .header-member {
     height: 60px;
+  }
+  .reg-form {
+    margin-top: 100px;
+    text-align: center;
+  }
+  .reg-btn{
+      margin-left: 100px;
+      width: 165px;
   }
 </style>
 

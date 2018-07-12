@@ -8,7 +8,7 @@
     <div class="cont_title" >
         <h3>了解我们的热门产品</h3>
     </div>
-    <div class="container" margin-top="60px">
+    <div class="container mod-about">
         <img src="/static/img/5.png" alt="">
         <img src="/static/img/7.png" alt="">
         <img src="/static/img/5.png" alt="">
@@ -37,5 +37,8 @@
   
   .el-carousel__item:nth-child(2n+1) {
      background-color: #4969e1;
+  }
+  .mod-about {
+    margin-top: 60px;
   }
 </style>

@@ -1,5 +1,9 @@
 body{
     margin: 0;
+    font-family: 'Microsoft Yahei';
+}
+input, textarea, keygen, select, button{
+    font-family: 'Microsoft Yahei';
 }
 .container{
     width: 1200px;
