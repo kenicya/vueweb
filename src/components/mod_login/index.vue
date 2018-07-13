@@ -1,29 +1,26 @@
 <template>
-  <div class="hander">
-    <el-row>
-    <el-col :span="24" class="header-member"></el-col>
+  <div class="container">
+    <el-row>               
       <div class="container">
-        <el-form ref="form" :model="form" label-width="600px">
-          <el-form-item label="用户名">
-            <el-col :span="8">
-              <el-input v-model="form.name"></el-input>
-            </el-col">
-          </el-form-item>
-            <el-form-item label="用户密码">
-              <el-col :span="8">
-                <el-input v-model="form.passworl"></el-input>
-              </el-col>              
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="onSubmit">登录</el-button>
-              <el-button>注册</el-button>
-            </el-form-item>
-        </el-form>  
+        <el-col :span="12">
+          <img src="/static/img/login.png" alt="">                  
+        </el-col> 
+        <el-col :span="8" class="reg-form">
+          <el-form ref="form" :model="form" label-width="100px" >
+            <el-form-item label="邮箱账号">
+              <el-input v-model="form.mail" placeholder="请输入内容"></el-input>
+            </el-form-item>              
+            <el-form-item label="输入密码">
+              <el-input v-model="form.passworl" placeholder="请输入内容"></el-input>
+            </el-form-item>  
+            <el-button type="primary" @click="onSubmit" class="login-btn">登录</el-button>   
+            <el-button type="primary" @click="onSubmit" class="reg-btn">注册</el-button>                           
+          </el-form>          
+        </el-col>
       </div>
     </el-row>
   </div>
 </template>
-
 <style>
   .el-carousel__item {
     text-align: center;
@@ -41,7 +38,15 @@
   }
 
   .header-member {
-    height: 65px;
+    height: 60px;
+  }
+  .reg-form {
+    margin-top: 200px;
+    text-align: center;
+  }
+  .login-btn{
+      margin-left: 50px;
+      width: 165px;
   }
 </style>
 
@@ -50,8 +55,9 @@
     data() {
       return {
         form: {
-          name: '',
+          mail: '',
           passworl: '',
+          repassworl:'',
         }
       }
     },

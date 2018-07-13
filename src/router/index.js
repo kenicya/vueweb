@@ -8,6 +8,8 @@ import prodDetail from '@/components/mod_prod/detail'
 import columns from '@/components/mod_columns/index'
 import login from '@/components/mod_login/index'
 import register from '@/components/mod_register/index'
+import user from '@/components/mod_user/index'
+
 
 Vue.use(Router)
 
@@ -42,6 +44,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register
-    }
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: user
+    }    
   ]
 })
