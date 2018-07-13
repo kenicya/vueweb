@@ -20,4 +20,7 @@ input, textarea, keygen, select, button{
     text-align:center;
     color:#333;
     font-size: 36px;
-  }
+}
+.text-center{
+    text-align: center;
+}
