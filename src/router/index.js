@@ -9,6 +9,7 @@ import columns from '@/components/mod_columns/index'
 import login from '@/components/mod_login/index'
 import register from '@/components/mod_register/index'
 import user from '@/components/mod_user/index'
+import addprod from '@/components/mod_user/addprod'
 
 
 Vue.use(Router)
@@ -16,6 +17,9 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/',
+      component: home
+    },{
       path: '/home',
       name: 'home',
       component: home
@@ -49,6 +53,11 @@ export default new Router({
       path: '/user',
       name: 'user',
       component: user
-    }    
+    },
+    {
+      path: '/addprod',
+      name: 'addprod',
+      component: addprod
+    }   
   ]
 })
