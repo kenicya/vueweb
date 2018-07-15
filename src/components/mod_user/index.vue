@@ -10,7 +10,7 @@
 		  <el-aside width="220px" class="aside-box">
 		  		<div class="aside-header">已有项目</div>
 		  		<el-menu>
-			        <el-menu-item index="1-1">选项1</el-menu-item>
+			        <el-menu-item index="1-1">全部</el-menu-item>
 			        <el-menu-item index="1-2">选项2</el-menu-item>
 			    </el-menu>
 		  </el-aside>
@@ -18,9 +18,9 @@
 			  <div class="user-block">
 				<el-form ref="form" :model="form" label-width="80px">
 				  <el-form-item label="状态">
-				    <el-select v-model="status" placeholder="活动区域">
-				      <el-option label="区域一" value="shanghai"></el-option>
-				      <el-option label="区域二" value="beijing"></el-option>
+				    <el-select v-model="status" placeholder="全部">
+				      <el-option label="已出报告" value="shanghai"></el-option>
+				      <el-option label="未出报告" value="beijing"></el-option>
 				    </el-select>
 				  </el-form-item>
 			    </el-form>
@@ -29,7 +29,7 @@
 			    <el-row class="user-list text-center">
 			    	<el-col :span="6">
 					    <el-card class="user-list-card">
-					    	<a href="#/login" class="add-btn"><i class="el-icon-plus"></i></a>
+					    	<a href="#/addprod" class="add-btn"><i class="el-icon-plus"></i></a>
 			    		</el-card>
 			    	</el-col>
 				  <el-col :span="6" v-for="(o, index) in 8" :key="o">

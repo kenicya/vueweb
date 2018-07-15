@@ -10,8 +10,8 @@
     </div>
     <div class="container mod-about">
         <img src="/static/img/5.png" alt="">
-        <img src="/static/img/7.png" alt="">
-        <img src="/static/img/5.png" alt="">
+        <img src="/static/img/6.png" alt="">
+        <img src="/static/img/9.png" alt="">
         <img src="/static/img/7.png" alt="">
     </div> 
     <div class="container">
