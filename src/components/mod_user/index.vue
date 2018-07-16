@@ -18,7 +18,7 @@
 			  <div class="user-block">
 				<el-form ref="form" :model="form" label-width="80px">
 				  <el-form-item label="状态">
-				    <el-select v-model="status" placeholder="全部">
+				    <el-select v-model="form.status" placeholder="全部">
 				      <el-option label="已出报告" value="shanghai"></el-option>
 				      <el-option label="未出报告" value="beijing"></el-option>
 				    </el-select>
@@ -29,7 +29,7 @@
 			    <el-row class="user-list text-center">
 			    	<el-col :span="6">
 					    <el-card class="user-list-card">
-					    	<a href="#/addprod" class="add-btn"><i class="el-icon-plus"></i></a>
+					    	<a href="#/creatprod" class="add-btn"><i class="el-icon-plus"></i></a>
 			    		</el-card>
 			    	</el-col>
 				  <el-col :span="6" v-for="(o, index) in 8" :key="o">
@@ -123,7 +123,8 @@
         currentPage4: 4,
         form: {
         	status: 'shanghai'
-        }
+        },
+        currentDate: ''
       };
     }
   }

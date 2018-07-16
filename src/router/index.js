@@ -10,6 +10,7 @@ import login from '@/components/mod_login/index'
 import register from '@/components/mod_register/index'
 import user from '@/components/mod_user/index'
 import addprod from '@/components/mod_user/addprod'
+import creatprod from '@/components/mod_user/creatprod'
 
 
 Vue.use(Router)
@@ -58,6 +59,11 @@ export default new Router({
       path: '/addprod',
       name: 'addprod',
       component: addprod
-    }   
+    },
+    {
+      path: '/creatprod',
+      name: 'creatprod',
+      component: creatprod
+    }  
   ]
 })
