@@ -14,7 +14,9 @@
               <el-input v-model="form.passworl" placeholder="请输入内容"></el-input>
             </el-form-item>  
             <el-button type="primary" @click="onSubmit" class="login-btn">登录</el-button>   
-            <el-button type="primary" @click="onSubmit" class="reg-btn">注册</el-button>                           
+            <el-button type="primary" class="reg-btn">
+              <a href="#/register" class="reg-type">注册</a>
+            </el-button>                           
           </el-form>          
         </el-col>
       </div>
@@ -47,6 +49,13 @@
   .login-btn{
       margin-left: 50px;
       width: 165px;
+  }
+  .reg-btn {
+    width: 165px;
+  }
+  .reg-type {
+    text-decoration: none;
+    color: #fff
   }
 </style>
 
