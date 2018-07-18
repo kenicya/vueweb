@@ -2,7 +2,7 @@
 	<div class="container">
 	  	<el-breadcrumb separator-class="el-icon-arrow-right" class="ano-breadcrumb">
 		  <el-breadcrumb-item :to="{ path: '/' }">用户中心</el-breadcrumb-item>
-		  <el-breadcrumb-item>添加/修改需求</el-breadcrumb-item>
+		  <el-breadcrumb-item>添加项目</el-breadcrumb-item>
 		</el-breadcrumb>
 		<div class="creat-block">
 			<el-form ref="form" :model="form" label-width="80px">
@@ -11,47 +11,90 @@
 						<el-option label="已出报告" value="a"></el-option>
 						<el-option label="未出报告" value="b"></el-option>				       
 					</el-select>
-				<el-button type="primary" class="new-btn">
-          <a href="#/addprod" class="add-type">新建项目 </a>
-        </el-button>
+					<el-button type="primary" class="new-btn">
+						<a href="#/addprod" class="add-type">新建项目 </a>
+					</el-button>
 				</el-form-item>
 			</el-form>
 		</div>
-			<div class="container">
+		<div class="container">
+			<el-form ref="form" :model="form" label-width="100px">
 				<el-row>
 					<el-col :span="12" class="creat-form">
-            <el-form ref="creat-form" :model="form" label-width="80px">
-            <el-form-item label="测试文件:"></el-form-item>           
-            </el-form>
+						<el-form-item label="测试文件:">
+							<el-upload
+							  class="upload-demo"
+							  action="https://jsonplaceholder.typicode.com/posts/"
+							  :on-preview="handlePreview"
+							  :on-remove="handleRemove"
+							  :before-remove="beforeRemove"
+							  multiple
+							  :limit="3"
+							  :on-exceed="handleExceed"
+							  :file-list="fileList">
+							  <el-button size="small" type="primary">点击上传</el-button>
+							</el-upload>
+						</el-form-item>					
+						<el-form-item label="选择历史包:">
+							<el-select v-model="form.status" placeholder="全部">
+								<el-option label="已出报告" value="a"></el-option>
+								<el-option label="未出报告" value="b"></el-option>				       
+							</el-select>					
+						</el-form-item>
+						<el-form-item label="版本:">
+							<el-input v-model="input" placeholder="请输入内容"></el-input>			       
+						</el-form-item>
+						<el-form-item label="测试说明:">
+							<el-input
+							  type="textarea"
+							  :rows="2"
+							  placeholder="请输入内容"
+							  v-model="textarea">
+							</el-input>
+						</el-form-item>
 					</el-col>          
 					<el-col :span="12" class="select-form">
-  					<div>
-             bbbbbbb 
-            </div>
+						<el-form-item label="是否删档测试:">
+							<template>
+							  <el-radio-group v-model="form.delete">
+							    <el-radio :label="1">是</el-radio>
+							    <el-radio :label="0">否</el-radio>
+							  </el-radio-group>
+							</template>
+						</el-form-item>
+						<el-form-item label="是否收费:">
+							<template>
+							  <el-radio-group v-model="form.pay">
+							    <el-radio :label="1">是</el-radio>
+							    <el-radio :label="0">否</el-radio>
+							  </el-radio-group>
+							</template>
+						</el-form-item>
 					</el-col>					
 				</el-row>			
-			</div>			
+			</el-form>
+		</div>			
 	</div>
 </template>
 
 <style>
-	.ano-breadcrumb {`
-		margin: 15px 0;
-	}
+
 	.creat-block {
 		margin-left: 400px;
 	}
 	.creat-form {
     margin: 15px 0;
-    background: #feee;
     height: 300px;
-		padding: 10px;
+	padding: 10px;
+	padding-right: 100px;
+    border: 1px solid #ddd;
 	}
   .select-form {
     margin: 15px 0;
-    background: #fefe;
     height: 300px;
-    padding: 10px;   
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-left: none; 
   }
   .add-type {
     text-decoration: none;
@@ -77,7 +120,9 @@
       return {
         form: {
           status: 'shanghai',
-          fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
+          fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
+           delete: '',
+           pay: ''
         }
       }
     },
