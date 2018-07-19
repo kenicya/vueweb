@@ -18,7 +18,7 @@
 			</el-form>
 		</div>
 		<div class="container">
-			<el-form ref="form" :model="form" label-width="100px">
+			<el-form ref="form" :model="form" label-width="200px">
 				<el-row>
 					<el-col :span="12" class="creat-form">
             <el-form-item label="测试文件:">
@@ -36,7 +36,7 @@
               </el-upload>
             </el-form-item>         
             <el-form-item label="选择历史包:">
-              <el-select v-model="form.status" placeholder="全部">
+              <el-select v-model="form.history" placeholder="全部">
                 <el-option label="已出报告" value="a"></el-option>
                 <el-option label="未出报告" value="b"></el-option>               
               </el-select>          
@@ -52,43 +52,50 @@
                 v-model="textarea">
               </el-input>
             </el-form-item>           
-          </el-col>          
-					<el-col :span="12" class="select-form">
-            <el-form-item label="是否收费:">
-              <template>
-                <el-radio-group v-model="form.pay">
-                  <el-radio :label="1">是</el-radio>
-                  <el-radio :label="0">否</el-radio>
-                </el-radio-group>
-              </template>
-            </el-form-item>           
-            <el-form-item label="是否删档测试:">
-              <template>
-                <el-radio-group v-model="form.delete">
-                  <el-radio :label="1">是</el-radio>
-                  <el-radio :label="0">否</el-radio>
-                </el-radio-group>
-              </template>
-            </el-form-item>
-            <el-form-item label="项目资源是否完整:">
-              <template>
-                <el-radio-group v-model="form.result">
-                  <el-radio :label="1">是</el-radio>
-                  <el-radio :label="0">否</el-radio>
-                </el-radio-group>
-              </template>
-            </el-form-item> 
-            <el-form-item label="功能无遗留性BUG:">
-              <template>
-                <el-radio-group v-model="form.bug">
-                  <el-radio :label="1">是</el-radio>
-                  <el-radio :label="0">否</el-radio>
-                </el-radio-group>
-              </template>
-            </el-form-item> 
-					</el-col>					
+          	</el-col>          
+				<el-col :span="12" class="select-form">
+		            <el-form-item label="是否收费:">
+		              <template>
+		                <el-radio-group v-model="form.pay">
+		                  <el-radio :label="1">是</el-radio>
+		                  <el-radio :label="0">否</el-radio>
+		                </el-radio-group>
+		              </template>
+		            </el-form-item>           
+		            <el-form-item label="是否删档测试:">
+		              <template>
+		                <el-radio-group v-model="form.delete">
+		                  <el-radio :label="1">是</el-radio>
+		                  <el-radio :label="0">否</el-radio>
+		                </el-radio-group>
+		              </template>
+		            </el-form-item>
+		            <el-form-item label="项目资源是否完整:">
+		              <template>
+		                <el-radio-group v-model="form.result">
+		                  <el-radio :label="1">是</el-radio>
+		                  <el-radio :label="0">否</el-radio>
+		                </el-radio-group>
+		              </template>
+		            </el-form-item> 
+		            <el-form-item label="功能无遗留性BUG:">
+		              <template>
+		                <el-radio-group v-model="form.bug">
+		                  <el-radio :label="1">是</el-radio>
+		                  <el-radio :label="0">否</el-radio>
+		                </el-radio-group>
+		              </template>
+		            </el-form-item> 
+				</el-col>					
 				</el-row>			
 			</el-form>
+			<div class="container">
+				<el-col :span="24" class="bottom-form">
+					<el-button type="primary" class="new-btn">
+						<a href="#/addprod" class="next-type">下一步</a>
+					</el-button>
+				</el-col>			
+			</div>
 		</div>			
 	</div>
 </template>
@@ -117,7 +124,7 @@
     color: #fff;
   }
   .creat-list {
-    width: 100px;
+    width: 200px;
   }
   .upload-demo {
     width: 100px;
@@ -126,6 +133,16 @@
   .history-list {
     width: 150px;
 
+  }
+  .next-type {
+  	text-decoration: none;
+  	color: #fee;
+  }
+  .bottom-form {
+  	margin-left: 560px;
+  }
+  .select-list {
+  	width: 200px;
   }
 </style> 
 
