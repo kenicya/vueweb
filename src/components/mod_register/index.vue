@@ -47,7 +47,6 @@
     text-align: center;
   }
   .reg-btn{
-      margin-left: 100px;
       width: 165px;
   }
 </style>

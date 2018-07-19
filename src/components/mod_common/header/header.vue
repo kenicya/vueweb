@@ -11,7 +11,7 @@
                         :router="isRouter"
                         @select="handleSelect"
                         text-color="#fff"
-                        background-color="#131e2a"
+                        background-color="#020001"
                         active-text-color="#ffd04b">
                         <el-menu-item v-for="nav in navs" v-if="!nav.subnav" :index="nav.name">
                             {{nav.text}}
@@ -34,7 +34,10 @@
 </template>
 <style>
 .header-wrap{
-    background-color: #131e2a;
+    background-color: #020001;
+}
+.header-main {
+    background-color: #020001;
 }
 .header-wrap .el-menu--horizontal{
     border-bottom: none;

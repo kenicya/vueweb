@@ -21,55 +21,71 @@
 			<el-form ref="form" :model="form" label-width="100px">
 				<el-row>
 					<el-col :span="12" class="creat-form">
-						<el-form-item label="测试文件:">
-							<el-upload
-							  class="upload-demo"
-							  action="https://jsonplaceholder.typicode.com/posts/"
-							  :on-preview="handlePreview"
-							  :on-remove="handleRemove"
-							  :before-remove="beforeRemove"
-							  multiple
-							  :limit="3"
-							  :on-exceed="handleExceed"
-							  :file-list="fileList">
-							  <el-button size="small" type="primary">点击上传</el-button>
-							</el-upload>
-						</el-form-item>					
-						<el-form-item label="选择历史包:">
-							<el-select v-model="form.status" placeholder="全部">
-								<el-option label="已出报告" value="a"></el-option>
-								<el-option label="未出报告" value="b"></el-option>				       
-							</el-select>					
-						</el-form-item>
-						<el-form-item label="版本:">
-							<el-input v-model="input" placeholder="请输入内容"></el-input>			       
-						</el-form-item>
-						<el-form-item label="测试说明:">
-							<el-input
-							  type="textarea"
-							  :rows="2"
-							  placeholder="请输入内容"
-							  v-model="textarea">
-							</el-input>
-						</el-form-item>
-					</el-col>          
+            <el-form-item label="测试文件:">
+              <el-upload
+                class="upload-demo"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                :on-preview="handlePreview"
+                :on-remove="handleRemove"
+                :before-remove="beforeRemove"
+                multiple
+                :limit="3"
+                :on-exceed="handleExceed"
+                :file-list="fileList">
+                <el-button size="small" type="primary">点击上传</el-button>
+              </el-upload>
+            </el-form-item>         
+            <el-form-item label="选择历史包:">
+              <el-select v-model="form.status" placeholder="全部">
+                <el-option label="已出报告" value="a"></el-option>
+                <el-option label="未出报告" value="b"></el-option>               
+              </el-select>          
+            </el-form-item>
+            <el-form-item label="版本:">
+              <el-input v-model="input" placeholder="请输入内容"></el-input>            
+            </el-form-item>
+            <el-form-item label="测试说明:">
+              <el-input
+                type="textarea"
+                :rows="2"
+                placeholder="请输入内容"
+                v-model="textarea">
+              </el-input>
+            </el-form-item>           
+          </el-col>          
 					<el-col :span="12" class="select-form">
-						<el-form-item label="是否删档测试:">
-							<template>
-							  <el-radio-group v-model="form.delete">
-							    <el-radio :label="1">是</el-radio>
-							    <el-radio :label="0">否</el-radio>
-							  </el-radio-group>
-							</template>
-						</el-form-item>
-						<el-form-item label="是否收费:">
-							<template>
-							  <el-radio-group v-model="form.pay">
-							    <el-radio :label="1">是</el-radio>
-							    <el-radio :label="0">否</el-radio>
-							  </el-radio-group>
-							</template>
-						</el-form-item>
+            <el-form-item label="是否收费:">
+              <template>
+                <el-radio-group v-model="form.pay">
+                  <el-radio :label="1">是</el-radio>
+                  <el-radio :label="0">否</el-radio>
+                </el-radio-group>
+              </template>
+            </el-form-item>           
+            <el-form-item label="是否删档测试:">
+              <template>
+                <el-radio-group v-model="form.delete">
+                  <el-radio :label="1">是</el-radio>
+                  <el-radio :label="0">否</el-radio>
+                </el-radio-group>
+              </template>
+            </el-form-item>
+            <el-form-item label="项目资源是否完整:">
+              <template>
+                <el-radio-group v-model="form.result">
+                  <el-radio :label="1">是</el-radio>
+                  <el-radio :label="0">否</el-radio>
+                </el-radio-group>
+              </template>
+            </el-form-item> 
+            <el-form-item label="功能无遗留性BUG:">
+              <template>
+                <el-radio-group v-model="form.bug">
+                  <el-radio :label="1">是</el-radio>
+                  <el-radio :label="0">否</el-radio>
+                </el-radio-group>
+              </template>
+            </el-form-item> 
 					</el-col>					
 				</el-row>			
 			</el-form>
@@ -84,14 +100,14 @@
 	}
 	.creat-form {
     margin: 15px 0;
-    height: 300px;
+    height: 500px;
 	padding: 10px;
 	padding-right: 100px;
     border: 1px solid #ddd;
 	}
   .select-form {
     margin: 15px 0;
-    height: 300px;
+    height: 500px;
     padding: 10px;
     border: 1px solid #ddd;
     border-left: none; 

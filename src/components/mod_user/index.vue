@@ -16,7 +16,7 @@
 		  </el-aside>
 		  <el-main>
 			  <div class="user-block">
-				<el-form ref="form" :model="form" label-width="80px">
+				<el-form ref="form" :model="form" label-width="100px">
 				  <el-form-item label="状态">
 				    <el-select v-model="form.status" placeholder="全部">
 				      <el-option label="已出报告" value="shanghai"></el-option>
@@ -27,11 +27,11 @@
 			    <div class="">
 			    </div>
 			    <el-row class="user-list text-center">
-				    <el-col :span="6" >
+<!-- 				    <el-col :span="6" >
 					    <el-card class="user-list-card">
 					    	<a @click="dialogFormVisible = true" class="add-btn"><i class="el-icon-plus"></i></a>
 			    		</el-card>
-			    	</el-col>
+			    	</el-col> -->
 
 			    	<el-col :span="6">
 					    <el-card class="user-list-card">
@@ -42,7 +42,7 @@
 				    <el-card class="user-list-card">
 				      <img src="static/img/test.png" class="image" width="100%">
 				      <div class="user-list-dec">
-				        <span>好吃的汉堡</span>
+				        <span>不好吃的汉堡</span>
 				        <div class="bottom clearfix">
 				          <time class="time">{{ currentDate }}</time>
 				        </div>
@@ -64,14 +64,23 @@
 		    </el-pagination>
 		  </el-main>
 		</el-container>			
-		<el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-			<el-form ref="form" :model="form" label-width="100px">
+		<el-dialog title="增加测试需求" :visible.sync="dialogFormVisible">
+			<el-form ref="form" :model="form" label-width="200px">
 				<el-row>
+					<el-form-item label="项目名称" class="history-list">
+						<el-select v-model="form.status" placeholder="全部">
+							<el-option label="已出报告" value="a"></el-option>
+							<el-option label="未出报告" value="b"></el-option>				       
+						</el-select>
+						<el-button type="primary">
+							<a href="#/addprod" class="add-type">新建项目</a>
+						</el-button>
+					</el-form-item>					
 					<el-col :span="12" class="creat-form">
 						<el-form-item label="测试文件:">
 							<el-upload
 							  class="upload-demo"
-							  action="https://jsonplaceholder.typicode.com/posts/"
+							  action="http://192.168.131.79:9000/upload"
 							  :on-preview="handlePreview"
 							  :on-remove="handleRemove"
 							  :before-remove="beforeRemove"
@@ -98,9 +107,17 @@
 							  placeholder="请输入内容"
 							  v-model="textarea">
 							</el-input>
-						</el-form-item>
+						</el-form-item>						
 					</el-col>          
 					<el-col :span="12" class="select-form">
+						<el-form-item label="是否收费:" class="text-list">
+							<template>
+							  <el-radio-group v-model="form.pay">
+							    <el-radio :label="1">是</el-radio>
+							    <el-radio :label="0">否</el-radio>
+							  </el-radio-group>
+							</template>
+						</el-form-item>						
 						<el-form-item label="是否删档测试:">
 							<template>
 							  <el-radio-group v-model="form.delete">
@@ -109,14 +126,22 @@
 							  </el-radio-group>
 							</template>
 						</el-form-item>
-						<el-form-item label="是否收费:">
+						<el-form-item label="项目资源是否完整:">
 							<template>
-							  <el-radio-group v-model="form.pay">
+							  <el-radio-group v-model="form.result">
 							    <el-radio :label="1">是</el-radio>
 							    <el-radio :label="0">否</el-radio>
 							  </el-radio-group>
 							</template>
-						</el-form-item>
+						</el-form-item>	
+						<el-form-item label="功能无遗留性BUG:">
+							<template>
+							  <el-radio-group v-model="form.bug">
+							    <el-radio :label="1">是</el-radio>
+							    <el-radio :label="0">否</el-radio>
+							  </el-radio-group>
+							</template>
+						</el-form-item>												
 					</el-col>					
 				</el-row>			
 			</el-form>
@@ -143,30 +168,57 @@
     font-size: 40px;
     color: #ddd;
 }
-  .aside-box {
-    border: 1px solid #ddd;
-    color: #333;
-    margin-top: 5px;
-    border-radius: 4px;
-  }	
-  .aside-box .el-menu{
-  	border-right: none;
-  }
-  .aside-header {
- 	border-bottom: 1px solid #ddd;
- 	line-height: 45px;
-    text-align: center;
-    background-color: #eee;
-  }
-  .el-main {
-    background-color: #E9EEF3;
-    color: #333;
-    margin-top: 5px;
-    margin-left: 5px;
-  }
-  .user-block {
-  	min-height: 500px;
-  }
+.aside-box {
+	border: 1px solid #ddd;
+	color: #333;
+	margin-top: 5px;
+	border-radius: 4px;
+}	
+.aside-box .el-menu{
+	border-right: none;
+}
+.aside-header {
+	border-bottom: 1px solid #ddd;
+	line-height: 45px;
+	text-align: center;
+	background-color: #eee;
+}
+.el-main {
+	background-color: #E9EEF3;
+	color: #333;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+.user-block {
+	min-height: 600px;
+}
+.select-form {
+	margin: 10px 0;
+}
+.add-type {
+	text-decoration: none;
+	color: #fff;
+}
+.history-list {
+	margin-left: 150px;
+}
+.creat-form {
+	margin: 15px 0;
+	height: 350px;
+	padding: 10px;
+	padding-right: 100px;
+	border: 1px solid #ddd;
+}
+.select-form {
+	margin: 15px 0;
+	height: 350px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-left: none; 
+}
+.text-list {
+
+}
 </style>
 
 <script>
@@ -201,15 +253,17 @@
         currentPage3: 5,
         currentPage4: 4,
         form: {
-        	status: 'shanghai'
+        	status: '已出报告'
         },
         currentDate: '',
         form: {
-          status: 'shanghai',
-          fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
+          status: '',
+          fileList: [{name: 'food.jpeg', url: 'http://192.168.131.79:9000/upload'}, {name: 'food2.jpeg', url: 'http://192.168.131.79:9000/upload'}],
            delete: '',
            pay: ''
         },
+        files: [],
+        uploadAction:'http://192.168.131.79:9000/upload',       
         dialogFormVisible: false
       };
     }
