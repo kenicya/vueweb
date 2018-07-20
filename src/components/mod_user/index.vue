@@ -27,12 +27,6 @@
 			    <div class="">
 			    </div>
 			    <el-row class="user-list text-center">
-<!-- 				    <el-col :span="6" >
-					    <el-card class="user-list-card">
-					    	<a @click="dialogFormVisible = true" class="add-btn"><i class="el-icon-plus"></i></a>
-			    		</el-card>
-			    	</el-col> -->
-
 			    	<el-col :span="6">
 					    <el-card class="user-list-card">
 					    	<a href="#/creatprod" class="add-btn"><i class="el-icon-plus"></i></a>
@@ -64,92 +58,6 @@
 		    </el-pagination>
 		  </el-main>
 		</el-container>			
-		<el-dialog title="增加测试需求" :visible.sync="dialogFormVisible">
-			<el-form ref="form" :model="form" label-width="200px">
-				<el-row>
-					<el-form-item label="项目名称" class="history-list">
-						<el-select v-model="form.status" placeholder="全部">
-							<el-option label="已出报告" value="a"></el-option>
-							<el-option label="未出报告" value="b"></el-option>				       
-						</el-select>
-						<el-button type="primary">
-							<a href="#/addprod" class="add-type">新建项目</a>
-						</el-button>
-					</el-form-item>					
-					<el-col :span="12" class="creat-form">
-						<el-form-item label="测试文件:">
-							<el-upload
-							  class="upload-demo"
-							  action="http://192.168.131.79:9000/upload"
-							  :on-preview="handlePreview"
-							  :on-remove="handleRemove"
-							  :before-remove="beforeRemove"
-							  multiple
-							  :limit="3"
-							  :on-exceed="handleExceed"
-							  :file-list="fileList">
-							  <el-button size="small" type="primary">点击上传</el-button>
-							</el-upload>
-						</el-form-item>					
-						<el-form-item label="选择历史包:">
-							<el-select v-model="form.status" placeholder="全部">
-								<el-option label="已出报告" value="a"></el-option>
-								<el-option label="未出报告" value="b"></el-option>				       
-							</el-select>					
-						</el-form-item>
-						<el-form-item label="版本:">
-							<el-input v-model="input" placeholder="请输入内容"></el-input>			       
-						</el-form-item>
-						<el-form-item label="测试说明:">
-							<el-input
-							  type="textarea"
-							  :rows="2"
-							  placeholder="请输入内容"
-							  v-model="textarea">
-							</el-input>
-						</el-form-item>						
-					</el-col>          
-					<el-col :span="12" class="select-form">
-						<el-form-item label="是否收费:" class="text-list">
-							<template>
-							  <el-radio-group v-model="form.pay">
-							    <el-radio :label="1">是</el-radio>
-							    <el-radio :label="0">否</el-radio>
-							  </el-radio-group>
-							</template>
-						</el-form-item>						
-						<el-form-item label="是否删档测试:">
-							<template>
-							  <el-radio-group v-model="form.delete">
-							    <el-radio :label="1">是</el-radio>
-							    <el-radio :label="0">否</el-radio>
-							  </el-radio-group>
-							</template>
-						</el-form-item>
-						<el-form-item label="项目资源是否完整:">
-							<template>
-							  <el-radio-group v-model="form.result">
-							    <el-radio :label="1">是</el-radio>
-							    <el-radio :label="0">否</el-radio>
-							  </el-radio-group>
-							</template>
-						</el-form-item>	
-						<el-form-item label="功能无遗留性BUG:">
-							<template>
-							  <el-radio-group v-model="form.bug">
-							    <el-radio :label="1">是</el-radio>
-							    <el-radio :label="0">否</el-radio>
-							  </el-radio-group>
-							</template>
-						</el-form-item>												
-					</el-col>					
-				</el-row>			
-			</el-form>
-			<div slot="footer" class="dialog-footer">
-			    <el-button @click="dialogFormVisible = false">取 消</el-button>
-			    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-			</div>
-		</el-dialog>
 	</div>
 </template>
 
@@ -216,9 +124,7 @@
 	border: 1px solid #ddd;
 	border-left: none; 
 }
-.text-list {
 
-}
 </style>
 
 <script>

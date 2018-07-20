@@ -24,7 +24,7 @@
             <el-form-item label="测试文件:">
               <el-upload
                 class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action="http://192.168.131.79:9000/upload"
                 :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 :before-remove="beforeRemove"
@@ -69,7 +69,7 @@
 		                  <el-radio :label="0">否</el-radio>
 		                </el-radio-group>
 		              </template>
-		            </el-form-item>
+		            </el-form-item>                
 		            <el-form-item label="项目资源是否完整:">
 		              <template>
 		                <el-radio-group v-model="form.result">
@@ -86,13 +86,21 @@
 		                </el-radio-group>
 		              </template>
 		            </el-form-item> 
+                <el-form-item label="平台:">
+                  <template>
+                    <el-radio-group v-model="form.platfrom">
+                      <el-radio :label="1">安卓</el-radio>
+                      <el-radio :label="0">苹果</el-radio>
+                    </el-radio-group>
+                  </template>
+                </el-form-item>                 
 				</el-col>					
 				</el-row>			
 			</el-form>
 			<div class="container">
 				<el-col :span="24" class="bottom-form">
 					<el-button type="primary" class="new-btn">
-						<a href="#/addprod" class="next-type">下一步</a>
+						<a href="#/amendprod" class="next-type">下一步</a>
 					</el-button>
 				</el-col>			
 			</div>
@@ -144,6 +152,7 @@
   .select-list {
   	width: 200px;
   }
+
 </style> 
 
 
@@ -153,9 +162,11 @@
       return {
         form: {
           status: 'shanghai',
-          fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
+          fileList: [{name: 'food.jpeg', url: ''}, {name: 'food2.jpeg', url: ''}],
            delete: '',
-           pay: ''
+           pay: '',
+           bug: '',
+           platfrom:''
         }
       }
     },
