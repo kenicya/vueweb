@@ -8,6 +8,7 @@
                      id="bar"
                      class="test"></ui-echart>
         <button @click="loadChart">重新加载</button>
+        <button @click="reload">请求后台数据重载</button>
     </div>
 </template>
 
@@ -20,6 +21,14 @@ export default {
         methods: {
             loadChart () {
                 this.options.title.text = 'Charts 入门示例' + String(+new Date());
+            },
+            async reload () {
+                let rs = await axios.post('/user/userinfo', {
+                        option: 'test'
+                    });
+                if (rs.success) {
+                    console.log(rs);
+                }
             }
         },
 

@@ -40,7 +40,8 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true
+    cssSourceMap: true,
+    before: require('../mock'), //引入mock/index.js
   },
 
   build: {
