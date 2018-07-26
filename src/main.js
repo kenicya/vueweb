@@ -9,6 +9,7 @@ import './components/mod_common/style/common.css';
 import ComHeader from './components/mod_common/header/header.vue';
 import router from './router';
 import * as Ajax from './util/ajax';
+import checkLogin from './util/check_login';
 
 Vue.use(ElementUI);
 // 初始化 ajax
@@ -29,6 +30,8 @@ function initApp () {
         }
     });
     app.$mount('#app');
+
 }
 
+checkLogin();
 initApp();

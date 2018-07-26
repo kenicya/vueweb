@@ -9,7 +9,7 @@
 		  		<div class="aside-header">已有项目</div>
 		  		<el-menu>
 			        <el-menu-item index="1-1">全部</el-menu-item>
-			        <el-menu-item index="1-2">选项2</el-menu-item>
+			        <el-menu-item v-for="(o, index) in menuList" :key="o">{{o}}</el-menu-item>
 			    </el-menu>
 		  </el-aside>
 		  <el-main>
@@ -168,8 +168,28 @@
         },
         files: [],
         uploadAction:'http://192.168.131.79:9000/upload',       
-        dialogFormVisible: false
+        dialogFormVisible: false,
+        menuList: []
       };
+    },
+    mounted() {
+		this.loadMenu();
+    },
+    methods: {
+      async loadMenu () { 
+	      this.menuList =  ['选项一','2',3,4,5];     
+          axios.post('http://192.168.131.79:9000/login')
+          .then(function(res){
+              if (res.code == 0 ) {
+                window.location="/home"  
+              } else {
+                console.log(res.msg)
+              }
+          })
+          .catch(function(res){
+               console.log(res)
+          });         
+      }
     }
   }
 </script>

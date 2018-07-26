@@ -22,11 +22,13 @@
                         </el-submenu>
                     </el-menu>
                 </el-col>
-                <el-col :span="4" class="header-member">
+                <el-col v-if="username" :span="4" class="header-member">
+                    <a href="#/user">当前用户:{{username}}</a>
+                </el-col>
+                <el-col v-else :span="4" class="header-member">
                     <a href="#/login">登陆</a>
                     <a> | </a>
                     <a href="#/register">注册</a>
-                    <a href="#/user">用户</a>
                 </el-col>
             </el-row>
         </div> 
@@ -92,7 +94,8 @@ export default {
     data() {
         return {
             activeIndex: 'home',
-            isRouter: true
+            isRouter: true,
+            username: window.dev && window.dev.username || ''
         };
     },
     methods: {
