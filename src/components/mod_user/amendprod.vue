@@ -17,7 +17,7 @@
             <template>
               <el-form-item>
                 <!-- `checked` 为 true 或 false -->
-                <el-checkbox v-model="form.nettest">协议测试(测试时间3~5天/人)</el-checkbox>
+                <el-checkbox v-model="form.prototest">协议测试(测试时间3~5天/人)</el-checkbox>
               </el-form-item>
             </template>  
             <template>
@@ -31,7 +31,10 @@
                 <!-- `checked` 为 true 或 false -->
                 <el-checkbox v-model="form.clientsalf">客户端安全测试(测试时间1~2天/人)</el-checkbox>
               </el-form-item>
-            </template>                                                  
+            </template> 
+            <el-form-item label="预计完成时间:">
+              <el-input v-model="input" placeholder="2018-10-12"></el-input>            
+            </el-form-item>                                                             
           </el-col>     
 				  <el-col :span="12" class="amend-select-form"> 
             <el-form-item label="专门的测试环境:">
@@ -126,7 +129,11 @@
       return {
         form: {
           nettest: '',
-          test: ','
+          prototest: '',
+          clienttest: '',
+          clientsalf: '',
+          result: '',
+          test: ''
         }
       }
     },

@@ -1,10 +1,8 @@
 <template>
 	<div class="container">
 	  	<el-breadcrumb separator-class="el-icon-arrow-right" class="ano-breadcrumb">
-		  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-		  <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-		  <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-		  <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+		  <el-breadcrumb-item :to="{ path: '/user' }">用户中心</el-breadcrumb-item>
+		  <el-breadcrumb-item>添加测试需求</el-breadcrumb-item>
 		</el-breadcrumb>
 		<el-container>
 		  <el-aside width="220px" class="aside-box">

@@ -7,7 +7,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './components/mod_common/style/common.css';
 import ComHeader from './components/mod_common/header/header.vue';
-import router from './router'
+import router from './router';
 import * as Ajax from './util/ajax';
 
 Vue.use(ElementUI);

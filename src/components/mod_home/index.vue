@@ -8,6 +8,7 @@
     <div class="cont_title" >
         <h3>了解我们的热门产品</h3>
     </div>
+
     <div class="container mod-about">
         <img src="/static/img/6.png" alt="">
         <img src="/static/img/7.png" alt="">
@@ -21,8 +22,11 @@
         </el-carousel-item>
       </el-carousel>                        
     </div>
-  </div>
+  </div>               
+  </div> 
 </template>
+
+
 <style>
   .el-carousel__item {
     text-align: center;

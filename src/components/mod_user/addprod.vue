@@ -7,17 +7,17 @@
 		<div class="container">
 			<el-row>
 				<el-col :span="8" offset="6" class="add-form">
-		          <el-form ref="form" :model="form" label-width="100px" >
+		      <el-form ref="form" :model="form" label-width="100px" >
 		            <el-form-item label="项目名称">
-		              <el-input v-model="form.mail" placeholder="不能为空"></el-input>
+		              <el-input v-model="form.name" placeholder="不能为空"></el-input>
 		            </el-form-item>    
 		            <el-form-item label="项目名称">
 						<el-upload
 						  class="upload-demo"
-						  action="https://jsonplaceholder.typicode.com/posts/"
 						  :on-preview="handlePreview"
 						  :on-remove="handleRemove"
 						  :before-remove="beforeRemove"
+              :http-request="uploadSectionFile"
 						  multiple
 						  :limit="3"
 						  :on-exceed="handleExceed"
@@ -25,11 +25,12 @@
 						  <el-button size="small" type="primary">点击上传</el-button>
 						  <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
 						</el-upload>
-		            </el-form-item> 		                      
-		            <el-form-item label="项目说明">
-		              <el-input v-model="form.passworl" placeholder=""></el-input>
-		            </el-form-item>                           
-		          </el-form>						
+            </el-form-item> 		                      
+            <el-form-item label="项目说明">
+              <el-input v-model="form.desc" placeholder=""></el-input>
+            </el-form-item> 
+            <el-button type="primary" @click="onSubmit" class="set-btn">保存项目</el-button>                            
+          </el-form>						
 				</el-col>
 			</el-row>	
 		</div>	
@@ -61,6 +62,10 @@
   .ano-breadcrumb{
   	margin: 15px 0;
   }
+  .set-btn {
+    margin-left: 50px;
+    width: 165px;    
+  }
 </style>
 
 <script>
@@ -68,15 +73,48 @@
     data() {
       return {
         form: {
-          mail: '',
-          passworl: '',
-          fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}]
+          name: '',
+          desc: '',
+          fileList: [{name: 'food.jpeg', url: ''}, {name: 'food2.jpeg', url: ''}]
         }
       }
     },
     methods: {
+      uploadSectionFile(file){
+        this.file = file
+        //debugger;
+      },
       onSubmit() {
-        console.log('submit!');
+        console.log('submit!')
+          var fd = new FormData()
+          var fileValue = document.querySelector('.upload-demo')
+          const name = this.form.name 
+          const desc = this.form.desc
+          let upfile = this.file.file
+          //debugger;
+          console.log(desc)
+          fd.append('name',name)
+          fd.append('desc',desc)
+          fd.append('upfile', upfile)
+          let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+          }
+          
+          axios.post('http://192.168.131.79:9000/addprj',fd,config)
+          .then(function(res){
+              console.log(res.code)
+              if (res.code == 0 ) {
+                window.location.hash="/creatprod"
+
+              } else {
+                console.log(res.msg)
+              }
+          })
+          .catch(function(res){
+               console.log(res)
+          });
       },
       handleRemove(file, fileList) {
         console.log(file, fileList);

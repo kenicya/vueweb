@@ -15,6 +15,7 @@
     "echarts": "^4.1.0",
     "element-ui": "^2.4.3",
     "vue": "^2.5.2",
+    "vue-pdf": "^3.3.1",
     "vue-router": "^3.0.1",
     "wind-dom": "0.0.3"
   },

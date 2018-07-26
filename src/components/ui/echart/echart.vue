@@ -14,7 +14,6 @@
      */
 
     import ECharts from 'echarts';
-    import logger from '../../../util/logger';
     import { on as bindEvent, off as unbindEvent } from 'wind-dom';
 
     // enumerated ECharts events for now
@@ -47,7 +46,7 @@
     ];
 
     if (!ECharts) {
-        logger.warn('[ECharts] not found');
+        window.console.warn('[ECharts] not found');
     }
 
     export default {

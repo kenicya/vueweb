@@ -12,6 +12,7 @@ import user from '@/components/mod_user/index'
 import addprod from '@/components/mod_user/addprod'
 import creatprod from '@/components/mod_user/creatprod'
 import amendprod from '@/components/mod_user/amendprod'
+import report from '@/components/mod_user/report'
 
 
 Vue.use(Router)
@@ -70,6 +71,11 @@ export default new Router({
       path: '/amendprod',
       name: 'amendprod',
       component: amendprod
+    },
+    {
+      path: '/report',
+      name: 'report',
+      component: report
     } 
   ]
 })
