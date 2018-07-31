@@ -7,33 +7,36 @@
 		  <el-button size="mini">查看需求单其他选项</el-button>	  
 		</el-breadcrumb>		
 		<div class="container">
-			<el-form ref="form" :model="report-form" label-width="100px">
+			<el-form ref="form" :model="report-form" label-width="100px">	
 			  <el-table
 			    :data="tableData"
-			    border
-			    colspan="4"
-			    style="width: 100%">
+			    style="width: 100%"
+			    class="tb-blue">
 			    <el-table-column
-			      prop="date"
-			      label="测试包"
-			      width="300">
-			    </el-table-column>
-			    <el-table-column
-			      prop="Version"
-			      label="版本"
-			      width="300">
-			    </el-table-column>
-			    <el-table-column
-			      prop="address"
-			      label="上传时间"
-			      width="300">
-			    </el-table-column>
-			    <el-table-column
-			      prop="address"
-			      label="预期完结时间"
-			      width="299">
+				    prop="date"
+				    label="测试合并"
+				    align="center">
+				    <el-table-column
+				      prop="pack"
+				      label="测试包"
+				      width="300">
+				    </el-table-column>
+				    <el-table-column
+				      prop="version"
+				      label="版本"
+				      width="300">
+				    </el-table-column>
+				    <el-table-column
+				      prop="upTime"
+				      label="上传时间"
+				      width="300">
+				    </el-table-column>
+				    <el-table-column
+				      prop="endTime"
+				      label="预期完结时间"
+				      width="299">
+				  	</el-table-column>
 			  	</el-table-column>
-			    </el-table-column>
 			  </el-table>			
 			</el-form>
 		</div>
@@ -45,7 +48,8 @@
 			  <el-table
 			    :data="tableStateData"
 			    border
-			    style="width: 100%">
+			    style="width: 100%"
+			    class="tb-blue">
 			    <el-table-column
 			      prop="testLable"			      
 			      label="测试项"
@@ -92,7 +96,11 @@
 	padding: 10px;
 	padding-right: 100px;
 	border: 1px solid #ddd;
-}	
+}
+.tb-blue th{
+	background-color: rgb(0, 184, 214) !important;
+	color: #fff;
+}
 </style>
 
 <script>
@@ -100,10 +108,21 @@
     data() {
       return {
         tableData: [{
-          pack: '',
-          Version: '',
-          upTime: '',
-          endTime: ''
+          pack: 'ceshi',
+          version: '1.2',
+          upTime: '2017-02-02',
+          endTime: '2017-03-03'
+        },
+        {
+          pack: 'ceshi',
+          version: '1.2',
+          upTime: '2017-02-02',
+          endTime: '2017-03-03'
+        },{
+          pack: 'ceshi',
+          version: '1.2',
+          upTime: '2017-02-02',
+          endTime: '2017-03-03'
         }],
         tableStateData: [{
         	date: '弱网'	
