@@ -9,7 +9,6 @@ import './components/mod_common/style/common.css';
 import ComHeader from './components/mod_common/header/header.vue';
 import router from './router';
 import * as Ajax from './util/ajax';
-import checkLogin from './util/check_login';
 
 Vue.use(ElementUI);
 // 初始化 ajax
@@ -33,5 +32,20 @@ function initApp () {
 
 }
 
+async function checkLogin () {
+    axios.defaults.crossDomain = true;
+    axios.defaults.withCredentials  = true;
+    axios.post('http://192.168.131.79:9000/checklogin')
+    .then(function(res){
+        if (res.state == 1 ) {
+            window.dev = {
+                username: res.username
+            }
+        } else {
+          console.log(res.msg)
+        }
+		initApp();
+    })
+}
+
 checkLogin();
-initApp();

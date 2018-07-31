@@ -66,7 +66,7 @@ let navs = [{
         text: '首页',
         name: 'home'
     }, {
-        text: '产品',
+        text: '专项测试',
         name: 'prod',
         subnav: [{
             text: '压力测试',

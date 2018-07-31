@@ -6,6 +6,7 @@ input, textarea, keygen, select, button{
     font-family: 'Microsoft Yahei';
 }
 .container{
+    margin-top: 20px;
     width: 1200px;
     margin-left: auto;
     margin-right: auto;

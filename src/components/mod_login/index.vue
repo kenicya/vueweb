@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="container">
     <el-row>               
       <div class="container">
@@ -10,8 +10,8 @@
             <el-form-item label="邮箱账号">
               <el-input v-model="form.username" placeholder="请输入内容"></el-input>
             </el-form-item>              
-            <el-form-item label="输入密码">
-              <el-input v-model="form.pwd" placeholder="请输入内容"></el-input>
+            <el-form-item label="输入密码" prop="pass">
+              <el-input type="password" v-model="form.pwd" placeholder="请输入内容"></el-input>
             </el-form-item>  
             <el-button type="primary" @click="onSubmit" class="login-btn">登录</el-button>   
             <el-button type="primary" class="reg-btn">
@@ -71,7 +71,6 @@
     },
     methods: {
       async onSubmit () {
-        console.log('submit!')
           var fd = new FormData()
           const username = this.form.username 
           const pwd = this.form.pwd
@@ -84,12 +83,12 @@
                 
               }
           }
-          // axios.defaults.crossDomain = true;
+          axios.defaults.crossDomain = true;
           axios.defaults.withCredentials  = true;
           axios.post('http://192.168.131.79:9000/login',fd,config)
           .then(function(res){
               if (res.code == 0 ) {
-                window.location="/home"  
+                window.location="./"  
               } else {
                 console.log(res.msg)
               }

@@ -8,43 +8,53 @@
 		  <el-aside width="220px" class="aside-box">
 		  		<div class="aside-header">已有项目</div>
 		  		<el-menu>
-			        <el-menu-item index="1-1">全部</el-menu-item>
-			        <el-menu-item v-for="(o, index) in menuList" :key="o">{{o}}</el-menu-item>
+			        <el-menu-item  @click="selectPro('all')" index="1-1">全部</el-menu-item>
+			        <el-menu-item 
+			        :index="item.id"
+			        @click="selectPro(item.id)"
+			        :key="item.id"
+			        v-for="(item, index) in menuList">{{item.name}}			        	
+			        </el-menu-item>
 			    </el-menu>
 		  </el-aside>
 		  <el-main>
 			  <div class="user-block">
 				<el-form ref="form" :model="form" label-width="100px">
 				  <el-form-item label="状态">
-				    <el-select v-model="form.status" placeholder="全部">
+				    <el-select v-model="form.status" placeholder="全部"> 
+				      <el-option label="全部" value="guangdong"></el-option>
 				      <el-option label="已出报告" value="shanghai"></el-option>
 				      <el-option label="未出报告" value="beijing"></el-option>
 				    </el-select>
 				  </el-form-item>
 			    </el-form>
-			    <div class="">
-			    </div>
 			    <el-row class="user-list text-center">
 			    	<el-col :span="6">
 					    <el-card class="user-list-card">
 					    	<a href="#/creatprod" class="add-btn"><i class="el-icon-plus"></i></a>
 			    		</el-card>
 			    	</el-col>
-				  <el-col :span="6" v-for="(o, index) in 8" :key="o">
-				    <el-card class="user-list-card">
-				      <img src="static/img/test.png" class="image" width="100%">
+				  <el-col :span="6" v-for="item in prodmsd" >
+				    <el-card class="user-list-card" >
+				      <img :src='item.iconurl' @click="reqdesc(item.Id)" class="image" width="100%">
 				      <div class="user-list-dec">
-				        <span>不好吃的汉堡</span>
+				        <span>{{item.packname}}</span>
 				        <div class="bottom clearfix">
-				          <time class="time">{{ currentDate }}</time>
+				          <time class="time">{{item.crateTime}}</time>
+				        <div class="user-list-status">
+				        	<span v-if="item.status==1">
+				        		测试中...
+				        	</span>	
+				        	<span v-else>已出报告</span>
+				        </div>
 				        </div>
 				      </div>
 				    </el-card>
-				  </el-col>
+				  </el-col>			  
 				</el-row>
 
 			  </div>
-		    <el-pagination 
+<!-- 		    <el-pagination 
 		      @size-change="handleSizeChange"
 		      @current-change="handleCurrentChange"
 		      :current-page.sync="currentPage3"
@@ -53,7 +63,7 @@
 		      background
 		      class="text-center"
 		      :total="1000">
-		    </el-pagination>
+		    </el-pagination> -->
 		  </el-main>
 		</el-container>			
 	</div>
@@ -64,6 +74,7 @@
 <style>
 .user-list-dec{
 	padding: 10px;
+	height: 55px;
 }
 .user-list-card{
 	margin: 10px;
@@ -127,38 +138,21 @@
 
 <script>
   export default {
-    methods: {
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-      },
+    methods: { 
+      // handleSizeChange(val) {
+      //   console.log(`每页 ${val} 条`);
+      // },
+      // handleCurrentChange(val) {
+      //   console.log(`当前页: ${val}`);
+      // },
       onSubmit() {
         console.log('submit!');
-      },
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePreview(file) {
-        console.log(file);
-      },
-      handleExceed(files, fileList) {
-        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-      },
-      beforeRemove(file, fileList) {
-        return this.$confirm(`确定移除 ${ file.name }？`);
-      }      
+      }         
     },
     data() {
       return {
-        currentPage1: 5,
-        currentPage2: 5,
-        currentPage3: 5,
-        currentPage4: 4,
-        form: {
-        	status: '已出报告'
-        },
+      	currentProd: 'all',
+      	page: 0,
         currentDate: '',
         form: {
           status: '',
@@ -167,29 +161,79 @@
            pay: ''
         },
         files: [],
-        uploadAction:'http://192.168.131.79:9000/upload',       
+        //uploadAction:'http://192.168.131.79:9000/upload',       
         dialogFormVisible: false,
-        menuList: []
+        menuList: [],
+        prodmsd: []
       };
     },
     mounted() {
 		this.loadMenu();
     },
     methods: {
-      async loadMenu () { 
-	      this.menuList =  ['选项一','2',3,4,5];     
-          axios.post('http://192.168.131.79:9000/login')
+      selectPro (id) {
+      	getProj(id,this)
+      },
+      reqdesc (id) {
+      	console.log("this is desc",id)
+      	  let fd = new FormData()
+      	  fd.append('packid',id);
+      	  console.log("this is fd",fd)
+      	  axios.defaults.crossDomain = true;
+          axios.defaults.withCredentials  = true;	         
+          axios.post('http://192.168.131.79:9000/report', fd)
           .then(function(res){
-              if (res.code == 0 ) {
-                window.location="/home"  
+              if (res.code == 0 ) { 
+                // self.currentProd = self.prodmsd
+                window.location.hash = '#/report'
               } else {
                 console.log(res.msg)
               }
-          })
-          .catch(function(res){
-               console.log(res)
-          });         
+          });      	
+      },
+      async loadMenu () { 
+      	 getProj('all',this)
+	      this.menuList =  ['选项一','2',3,4,5];
+	      var fd = new FormData()  
+	      this.menuList =  [];
+	      this.prodmsd = [];
+	      var self = this
+	      fd.append('page',page)
+          axios.defaults.crossDomain = true;
+          axios.defaults.withCredentials  = true;	         
+          axios.post('http://192.168.131.79:9000/allprod')
+          .then(function(res){
+              if (res.code == 0 ) { 
+                self.menuList = res.list  
+                //self.prodmsd = res.list                              
+              } else {
+                console.log(res.msg)
+              }
+
+          }
+          );         
       }
     }
+  }
+
+  function getProj(id,obj) {
+      	  let fd = new FormData(),
+		  self = obj;
+      	  fd.append('page', obj.page);
+      	  var pid = id == 'all' ? 0 : id
+      	  fd.append('pid',pid);
+      	  console.log("this is fd",fd)
+      	  axios.defaults.crossDomain = true;
+          axios.defaults.withCredentials  = true;	         
+          axios.post('http://192.168.131.79:9000/proj', fd)
+          .then(function(res){
+              if (res.code == 0 ) { 
+                self.menuList = res.allProj  
+                self.prodmsd = res.list 
+                // self.currentProd = self.prodmsd
+              } else {
+                console.log(res.msg)
+              }
+          });
   }
 </script>

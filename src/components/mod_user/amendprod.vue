@@ -11,35 +11,35 @@
             <template>
               <el-form-item>
                 <!-- `checked` 为 true 或 false -->
-                <el-checkbox v-model="form.nettest">弱网测试(测试时间3~6天/人)</el-checkbox>
+                <el-checkbox v-model="form.isweak">弱网测试(测试时间3~6天/人)</el-checkbox>
               </el-form-item>
             </template> 
             <template>
               <el-form-item>
                 <!-- `checked` 为 true 或 false -->
-                <el-checkbox v-model="form.prototest">协议测试(测试时间3~5天/人)</el-checkbox>
+                <el-checkbox v-model="form.isprotocol">协议测试(测试时间3~5天/人)</el-checkbox>
               </el-form-item>
             </template>  
             <template>
               <el-form-item>
                 <!-- `checked` 为 true 或 false -->
-                <el-checkbox v-model="form.clienttest">客户端性能测试(测试时间2~3天/人)</el-checkbox>
+                <el-checkbox v-model="form.isperform">客户端性能测试(测试时间2~3天/人)</el-checkbox>
               </el-form-item>
             </template>  
             <template>
               <el-form-item>
                 <!-- `checked` 为 true 或 false -->
-                <el-checkbox v-model="form.clientsalf">客户端安全测试(测试时间1~2天/人)</el-checkbox>
+                <el-checkbox v-model="form.issafe">客户端安全测试(测试时间1~2天/人)</el-checkbox>
               </el-form-item>
             </template> 
             <el-form-item label="预计完成时间:">
-              <el-input v-model="input" placeholder="2018-10-12"></el-input>            
+              <el-input v-model="form.time" placeholder="2018-10-12"></el-input>            
             </el-form-item>                                                             
           </el-col>     
 				  <el-col :span="12" class="amend-select-form"> 
             <el-form-item label="专门的测试环境:">
               <template>
-                <el-radio-group v-model="form.result">
+                <el-radio-group v-model="form.isenv">
                   <el-radio :label="1">是</el-radio>
                   <el-radio :label="0">否</el-radio>
                 </el-radio-group>
@@ -47,12 +47,23 @@
             </el-form-item>
             <el-form-item label="协议自测:">
               <template>
-                <el-radio-group v-model="form.test">
+                <el-radio-group v-model="form.isselfpro">
                   <el-radio :label="1">是</el-radio>
                   <el-radio :label="0">否</el-radio>
                 </el-radio-group>
               </template>
-            </el-form-item>            
+            </el-form-item> 
+            <el-form-item label="测试文件:">
+              <el-upload
+                class="upload-demo"
+                :http-request="uploadSectionFile"
+                multiple
+                :limit="3"
+                action=""
+                :file-list="form.fileList">
+                <el-button size="small" type="primary">点击上传</el-button>
+              </el-upload>
+            </el-form-item>                        
 				  </el-col>					
 				</el-row>			
 			</el-form>
@@ -61,9 +72,7 @@
 				<el-button type="primary" class="new-btn">
 					<a href="#/creatprod" class="amend-next-type">上一步</a>         
 				</el-button>
-        <el-button type="primary">
-          <a href="#/creatprod" type="primary" @click="onSubmit" class="push-btn">提交测试需求</a>
-        </el-button>
+        <el-button type="primary" @click="onSubmit" class="push-btn">提交测试需求</el-button>
 				</el-col>			
 			</div>
 		</div>			
@@ -93,17 +102,6 @@
     text-decoration: none;
     color: #fff;
   }
-  .creat-list {
-    width: 200px;
-  }
-  .upload-demo {
-    width: 100px;
-    margin-left: 20px;
-  }
-  .history-list {
-    width: 150px;
-
-  }
   .amend-next-type {
   	text-decoration: none;
   	color: #fee;
@@ -128,18 +126,81 @@
     data() {
       return {
         form: {
-          nettest: '',
-          prototest: '',
-          clienttest: '',
-          clientsalf: '',
-          result: '',
-          test: ''
+          isweak: '',
+          isprotocol: '',
+          isperform: '',
+          issafe: '',
+          time: '',
+          isenv: '',
+          isselfpro: ''
         }
       }
     },
-    methods: {
+    mounted() {
+        this.prodid = window.localStorage.getItem('prodid');
+        this.upfile = window.localStorage.getItem('upfile');
+        this.version = window.localStorage.getItem('version');
+        this.desc = window.localStorage.getItem('desc');
+        this.isdelv = window.localStorage.getItem('isdelv');
+        this.ispay = window.localStorage.getItem('ispay');
+        this.plat = window.localStorage.getItem('plat');
+        this.istrue = window.localStorage.getItem('istrue');
+        this.isbug = window.localStorage.getItem('isbug');  
+        console.log(this.prodid)
+    },
+    methods: { 
+      uploadSectionFile(file){
+        this.form.upfile = file
+        //debugger;
+      },         
       onSubmit() {
-        console.log('submit!');
+        console.log('submit!')
+          var fd = new FormData()
+          const isweak = this.form.isweak 
+          const isprotocol = this.form.isprotocol
+          const isperform = this.form.isperform 
+          const issafe = this.form.issafe 
+          const time = this.form.time 
+          const isenv = this.form.isenv 
+          const isselfpro = this.form.isselfpro 
+          const upfile = this.form.upfile.file
+
+          fd.append('isweak',isweak)
+          fd.append('isprotocol',isprotocol)          
+          fd.append('isperform',isperform)
+          fd.append('issafe',issafe)
+          fd.append('time',time)
+          fd.append('isenv',isenv)
+          fd.append('isselfpro',isselfpro)
+
+          fd.append('prodid',this.prodid)
+          fd.append('upfile',upfile)
+          fd.append('version',this.version)
+          fd.append('desc',this.desc)
+          fd.append('isdelv',this.isdelv)
+          fd.append('ispay',this.ispay)
+          fd.append('plat',this.plat)
+          fd.append('istrue',this.istrue)
+          fd.append('isbug',this.isbug)
+
+          let config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'               
+              }
+          }
+          axios.defaults.crossDomain = true;
+          axios.defaults.withCredentials  = true;
+          axios.post('http://192.168.131.79:9000/addneed',fd,config)
+          .then(function(res){
+              if (res.code == 0 ) { 
+                window.location.hash = '#/creatprod'
+              } else {
+                console.log(res.msg)
+              }
+          })
+          .catch(function(res){
+               console.log(res)
+          }); 
       }
     }
   }

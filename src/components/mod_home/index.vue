@@ -6,7 +6,7 @@
       </el-carousel-item>
     </el-carousel>
     <div class="cont_title" >
-        <h3>了解我们的热门产品</h3>
+        <h3>我们的服务</h3>
     </div>
 
     <div class="container mod-about">
@@ -17,8 +17,8 @@
     </div> 
     <div class="container">
       <el-carousel :interval="4000" type="card" height="300px">
-        <el-carousel-item v-for="item in 10" :key="item">
-          <img :src="`/static/img/${item}.png`">
+        <el-carousel-item v-for="item in 7" :key="item">
+          <img :src="`/static/img/${item + 9}.png`">
         </el-carousel-item>
       </el-carousel>                        
     </div>

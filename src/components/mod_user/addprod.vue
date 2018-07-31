@@ -85,14 +85,12 @@
         //debugger;
       },
       onSubmit() {
-        console.log('submit!')
           var fd = new FormData()
           var fileValue = document.querySelector('.upload-demo')
           const name = this.form.name 
           const desc = this.form.desc
           let upfile = this.file.file
           //debugger;
-          console.log(desc)
           fd.append('name',name)
           fd.append('desc',desc)
           fd.append('upfile', upfile)
@@ -101,10 +99,10 @@
                 'Content-Type': 'multipart/form-data'
               }
           }
-          
+          axios.defaults.crossDomain = true;
+          axios.defaults.withCredentials  = true;
           axios.post('http://192.168.131.79:9000/addprj',fd,config)
           .then(function(res){
-              console.log(res.code)
               if (res.code == 0 ) {
                 window.location.hash="/creatprod"
 
