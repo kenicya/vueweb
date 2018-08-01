@@ -2,7 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 // 所有页面的总入口
 
-import Vue from 'vue'
+import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import './components/mod_common/style/common.css';
@@ -31,6 +31,11 @@ function initApp () {
     app.$mount('#app');
 
 }
+window.dev = {
+    username: 'username'
+}
+initApp();
+
 
 async function checkLogin () {
     axios.defaults.crossDomain = true;
