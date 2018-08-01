@@ -138,17 +138,6 @@
 
 <script>
   export default {
-    methods: { 
-      // handleSizeChange(val) {
-      //   console.log(`每页 ${val} 条`);
-      // },
-      // handleCurrentChange(val) {
-      //   console.log(`当前页: ${val}`);
-      // },
-      onSubmit() {
-        console.log('submit!');
-      }         
-    },
     data() {
       return {
       	currentProd: 'all',
@@ -175,21 +164,12 @@
       	getProj(id,this)
       },
       reqdesc (id) {
-      	console.log("this is desc",id)
-      	  let fd = new FormData()
-      	  fd.append('packid',id);
-      	  console.log("this is fd",fd)
-      	  axios.defaults.crossDomain = true;
-          axios.defaults.withCredentials  = true;	         
-          axios.post('http://192.168.131.79:9000/report', fd)
-          .then(function(res){
-              if (res.code == 0 ) { 
-                // self.currentProd = self.prodmsd
-                window.location.hash = '#/report'
-              } else {
-                console.log(res.msg)
-              }
-          });      	
+      	  console.log("this is desc",id)      	  
+      	  window.localStorage.setItem('packid',id)   
+	        this.$router.push({
+	          path: '/report',
+	          params:{}
+	        })		
       },
       async loadMenu () { 
       	 getProj('all',this)

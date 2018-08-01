@@ -14,7 +14,7 @@
 			    class="tb-blue">
 			    <el-table-column
 				    prop="date"
-				    label="测试合并"
+				    label="测试单号"
 				    align="center">
 				    <el-table-column
 				      prop="pack"
@@ -41,7 +41,7 @@
 			</el-form>
 		</div>
 		<div class="container">
-			测试说明：
+			<span>测试说明：</span>
 		</div>
 		<div class="container">
 			<el-form ref="form" :model="report-form" label-width="100px">
@@ -51,28 +51,47 @@
 			    style="width: 100%"
 			    class="tb-blue">
 			    <el-table-column
-			      prop="testLable"			      
+			      prop="name"			      
 			      label="测试项"
 			      width="300">
 			    </el-table-column>
 			    <el-table-column
-			      prop="Version"
+			      prop="state"
 			      label="状态"
 			      width="300">
 			    </el-table-column>
 			    <el-table-column
-			      prop="address"
+			      prop="downReport"
 			      label="报告下载"
 			      width="300">
 			    </el-table-column>
 			    <el-table-column
-			      prop="address"
+			      prop="upday"
 			      label="上传时间"
-			      width="299">
+			      width="199">
 			  	</el-table-column>
-			    </el-table-column>
+			    <el-table-column
+			      fixed="right"
+			      label="操作"
+			      width="100">
+			      <template slot-scope="scope">
+					  <el-button type="primary" @click="dialogFormVisible = true">查看</el-button>					  
+			      </template>
+			    </el-table-column>			  	
+			    </el-table-column>			
 			  </el-table>				
 			</el-form>
+			<div>
+				<el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+					  <el-form :model="form" :data="tableStateData">	
+					  	<img src="repotrtUrl" alt="">			  	
+					  </el-form>
+					  <div slot="footer" class="dialog-footer">
+					    <el-button @click="dialogFormVisible = false">取 消</el-button>
+					    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+					  </div>
+					</el-dialog>				
+			</div>
 		</div>			
 	</div>
 </template>
@@ -107,32 +126,39 @@
   export default {
     data() {
       return {
-        tableData: [{
-          pack: 'ceshi',
-          version: '1.2',
-          upTime: '2017-02-02',
-          endTime: '2017-03-03'
-        },
-        {
-          pack: 'ceshi',
-          version: '1.2',
-          upTime: '2017-02-02',
-          endTime: '2017-03-03'
-        },{
-          pack: 'ceshi',
-          version: '1.2',
-          upTime: '2017-02-02',
-          endTime: '2017-03-03'
-        }],
-        tableStateData: [{
-        	date: '弱网'	
-        }, {
-        	date: '协议'
-        }, {
-        	date: '客户端性能'
-        }, {
-        	date: '客户端安全'
-        }]
+        tableData: [],
+        tableStateData: [],
+        dialogTableVisible: false,
+        dialogFormVisible: false
+      }
+    },
+    mounted() {
+        this.id = window.localStorage.getItem('packid');
+        console.log("this is id",this.id)
+        this.loadMenu();
+    },    
+    methods: {
+    	  handleClick(row) {
+    	  	console.log("this is row",row.repotrtUrl)
+    	  },
+      	  async loadMenu () { 
+      	  let fd = new FormData()
+      	  var self = this
+      	  this.tableData = []
+      	  fd.append('packid',this.id);
+      	  axios.defaults.crossDomain = true;
+          axios.defaults.withCredentials  = true;	         
+          axios.post('http://192.168.131.79:9000/packinfo', fd)
+          .then(function(res){
+              if (res.code == 0 ) { 
+                // self.currentProd = self.prodmsd
+                self.tableData.push(res.packinfo)
+                self.tableStateData = res.testprj
+                //window.location.hash = '#/report'
+              } else {
+                console.log(res.msg)
+              }
+          });         
       }
     }
   }
