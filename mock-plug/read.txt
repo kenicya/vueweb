@@ -1,0 +1,1 @@
+把该文件夹的@self目录放入node_module里面，使用mock插件
