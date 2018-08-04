@@ -14,6 +14,7 @@ import { MessageBox, Loading } from 'element-ui';
 let inited = false;
 let $showErr = function (msg) {
     MessageBox.alert(msg.msg, msg.subtitle, {
+        type: 'error',
         confirmButtonText: '确定'
     });
 }
