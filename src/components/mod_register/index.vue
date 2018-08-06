@@ -11,10 +11,10 @@
               <el-input v-model="form.username" placeholder="请输入内容"></el-input>
             </el-form-item>              
             <el-form-item label="输入密码">
-              <el-input v-model="form.pwd" placeholder="请输入内容"></el-input>
+              <el-input type="password" v-model="form.pwd" placeholder="请输入内容"></el-input>
             </el-form-item>  
-<!--             <el-form-item label="确认密码">
-              <el-input v-model="form.pwd" placeholder="请输入内容"></el-input>
+<!--             <el-form-item label="确认密码" prop="checkPass">
+              <el-input type="password" v-model="form.checkPass" auto-complete="off" placeholder="请输入内容"></el-input>
             </el-form-item>   -->
             <el-button type="primary" @click="onSubmit" class="reg-btn">注册</el-button>                              
           </el-form>          
@@ -54,11 +54,39 @@
 <script>
   export default {
     data() {
+      // var validatePass = (rule,value,callback) => {
+      //   if (value === '') {
+      //     callback(new Error('请输入密码'));
+      //   } else {
+      //     if (this.form.checkPass !== '') {
+      //       this.$refs.form.validateField('checkPass')
+      //     }
+      //     callback();
+      //   }
+      // };
+      // var validatePass2 = (rule, value, callback) => {
+      //   if (value === '') {
+      //     callback(new Error('请再次输入密码'));
+      //   } else if (value !== this.form.pwd) {
+      //     callback(new Error('两次输入密码不一致！'));
+      //   } else {
+      //     callback();
+      //   }
+      // };
       return {
         form: {
           username: '',
-          pwd: '',
+          pwd: ''
+          //checkPass: ''
         }
+        // rules: {
+        //   pass: [
+        //     { validator: validatePass, trigger: 'blur' }
+        //   ],
+        //   checkPass: [
+        //     { validator: validatePass2, trigger: 'blur'}
+        //   ]
+        // }
       }
     },
     methods: {        
@@ -75,7 +103,7 @@
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
           }
-          axios.post('http://192.168.131.79:9000/register',fd,config)
+          axios.post(window.dev.url + '/register',fd,config)
           .then(function(res){
               if (res.code == 0 ) {
                 window.location="/home"

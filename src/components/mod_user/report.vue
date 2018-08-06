@@ -4,7 +4,72 @@
             <el-breadcrumb-item :to="{ path: '/user' }">用户中心</el-breadcrumb-item>
             <el-breadcrumb-item>测试需求单</el-breadcrumb-item>
             <el-breadcrumb-item>汇总报告</el-breadcrumb-item>
-            <el-button size="mini">查看需求单其他选项</el-button>
+            <el-button type="primary" size="mini" @click="showHisDialog1">查看需求单其他选项</el-button> 
+            <div>
+                <el-dialog title="需求单" :visible.sync="hisDialog">
+                    <el-form ref="form" :model="hisData" label-width="200px">
+                    <el-form-item label="是否付费:">
+                      <template>
+                        <el-radio-group v-model="hisData.isPay">
+                          <el-radio :label="true">是</el-radio>
+                          <el-radio :label="false">否</el-radio>
+                        </el-radio-group>
+                      </template>                      
+                    </el-form-item>
+                    <el-form-item label="是否删档测试:">
+                      <template>
+                        <el-radio-group v-model="hisData.isDel">
+                          <el-radio :label="true">是</el-radio>
+                          <el-radio :label="false">否</el-radio>
+                        </el-radio-group>
+                      </template>
+                    </el-form-item>
+                    <el-form-item label="平台:">
+                      <template>
+                        <el-radio-group v-model="hisData.plat">
+                          <el-radio :label="1">安卓</el-radio>
+                          <el-radio :label="0">苹果</el-radio>
+                        </el-radio-group>
+                      </template>
+                    </el-form-item> 
+                    <el-form-item label="项目资源是否完整:">
+                      <template>
+                        <el-radio-group v-model="hisData.isTrue">
+                          <el-radio :label="true">是</el-radio>
+                          <el-radio :label="false">否</el-radio>
+                        </el-radio-group>
+                      </template>
+                    </el-form-item>
+                    <el-form-item label="功能无遗留性BUG:">
+                      <template>
+                        <el-radio-group v-model="hisData.isBug">
+                          <el-radio :label="true">是</el-radio>
+                          <el-radio :label="false">否</el-radio>
+                        </el-radio-group>
+                      </template>
+                    </el-form-item>
+                    <el-form-item label="专门的测试环境:">
+                      <template>
+                        <el-radio-group v-model="hisData.isEnv">
+                          <el-radio :label="true">是</el-radio>
+                          <el-radio :label="false">否</el-radio>
+                        </el-radio-group>
+                      </template>
+                    </el-form-item>  
+                    <el-form-item label="协议自测:">
+                      <template>
+                        <el-radio-group v-model="hisData.isSelf">
+                          <el-radio :label="true">是</el-radio>
+                          <el-radio :label="false">否</el-radio>
+                        </el-radio-group>
+                      </template>
+                    </el-form-item>                                                                                                                   
+                    </el-form>
+                  <div slot="footer" class="dialog-footer">
+                    <el-button type="primary" @click="hisDialog = fales">取 消</el-button>
+                  </div>
+                </el-dialog>                 
+            </div>                      
         </el-breadcrumb>
         <div class="container">
             <el-form ref="form" :model="report-form" label-width="100px">
@@ -49,7 +114,7 @@
             </el-form>
             <div>
                 <el-dialog title="报表预览" :visible.sync="imgDialog">
-                	<div class="text-center"><img :src="repotrtUrl"></div>
+                	<div class="text-center img-dialog"><img :src="repotrtUrl"></div>
                     <div slot="footer" class="dialog-footer">
                         <el-button type="primary" @click="imgDialog = false">确 定</el-button>
                     </div>
@@ -86,71 +151,66 @@
 	    color: #fff;
 	}
 
+	.img-dialog img{
+		max-width: 100%;
+	}
+
 </style>
 <script>
 export default {
     data() {
         return {
+            form:{},
             tableData: [],
             tableStateData: [],
-            dialogTableVisible: false,
+            hisDialog: false,
             imgDialog: false,
-            repotrtUrl: ''
+            repotrtUrl: '',           
+            report:'',
+            hisData: {}
         }
-    },
+    },    
     mounted() {
         this.id = window.localStorage.getItem('packid');
-        console.log("this is id", this.id)
         this.loadMenu();
-    },
-    methods: {
+    },   
+    methods: {        
         showImgDialog(row) {
         	this.repotrtUrl = row.repotrtUrl;
         	this.imgDialog = true;
         },
-        async loadMenu() {
-
-   //      	let data = [{
-			// 		"name": "协议测试",
-			// 		"state": 0,
-			// 		"downReport": "http://192.168.131.79:9000/downloadreport/test.xlsx ",
-			// 		"upday": "2018-07-07",
-			// 		"repotrtUrl": "https://goss.veer.com/creative/vcg/veer/612/veer-153618676.jpg"
-			// 	}, {
-			// 		"name": "性能测试",
-			// 		"state": 0,
-			// 		"downReport": "http://192.168.131.79:9000/downloadreport/test.xlsx ",
-			// 		"upday": "2018-07-07",
-			// 		"repotrtUrl": "https://goss.veer.com/creative/vcg/veer/612/veer-134045211.jpg"
-			// 	}, {
-			// 		"name": "弱网测试",
-			// 		"state": 0,
-			// 		"downReport": "http://192.168.131.79:9000/downloadreport/test.xlsx ",
-			// 		"upday": "2018-08-08",
-			// 		"repotrtUrl": "https://goss.veer.com/creative/vcg/veer/612/veer-153618676.jpg"
-			// 	}, {
-			// 		"name": "安全测试",
-			// 		"state": 0,
-			// 		"downReport": "http://192.168.131.79:9000/downloadreport/test.xlsx",
-			// 		"upday": "2018-07-07",
-			// 		"repotrtUrl": "https://goss.veer.com/creative/vcg/veer/612/veer-134045211.jpg"
-			// 	}];
-			// this.tableStateData = data;
-			// return true;
-
+        showHisDialog1 () {
             let fd = new FormData()
             var self = this
             this.tableData = []
+            this.hisDialog = true
             fd.append('packid', this.id);
             axios.defaults.crossDomain = true;
             axios.defaults.withCredentials = true;
-            axios.post('http://192.168.131.79:9000/packinfo', fd)
+            axios.post(window.dev.url + '/testinfo', fd)
+                .then(function(res) {
+                    if (res.code == 0) {
+                        // self.currentProd = self.prodmsd
+                        // self.tableData.push(res.packinfo)
+                        self.hisData = res.testinfo
+                    } else {
+                        console.log(res.msg)
+                    }
+                });
+        },
+        async loadMenu() {
+            let fd = new FormData()
+            var self = this           
+            //this.tableData = []
+            fd.append('packid', this.id);
+            axios.defaults.crossDomain = true;
+            axios.defaults.withCredentials = true;
+            axios.post(window.dev.url + '/packinfo', fd)
                 .then(function(res) {
                     if (res.code == 0) {
                         // self.currentProd = self.prodmsd
                         self.tableData.push(res.packinfo)
                         self.tableStateData = res.testprj
-                        //window.location.hash = '#/report'
                     } else {
                         console.log(res.msg)
                     }

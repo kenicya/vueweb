@@ -1,16 +1,13 @@
 <template>
 	<div class="container">
 	  	<el-breadcrumb separator-class="el-icon-arrow-right" class="ano-breadcrumb">
-		  <el-breadcrumb-item :to="{ path: '/' }">用户中心</el-breadcrumb-item>
-		  <el-breadcrumb-item>添加项目</el-breadcrumb-item>
+		  <el-breadcrumb-item :to="{ path: '/user' }">用户中心</el-breadcrumb-item>
+		  <el-breadcrumb-item>添加测试需求</el-breadcrumb-item>
 		</el-breadcrumb>
 		<div class="creat-block">
-			<el-form ref="form" :model="form" label-width="80px">
+			<el-form ref="form" :model="projname" label-width="80px">
 				<el-form-item label="项目名称">
-<!-- 					<el-select v-model="form.modulprod" placeholder="全部">
-						<el-option v-for="(item,index) in projname" :key="item.name" :label="item.name" v-bind:value="item">{{item.name}}</el-option>			       
-					</el-select> -->
-          <el-select v-model="projname.id" placeholder="全部">
+          <el-select v-model="projname.id" placeholder="全部" @change="selectPrj">
             <el-option
               v-for="item in projname"
               :key="item.id"
@@ -19,69 +16,73 @@
             </el-option>
           </el-select>
 					<el-button type="primary" class="new-btn">
-						<a href="#/addprod" class="add-type">新建项目 </a>
+						<a href="#/addprod" class="add-type">新建项目</a>
 					</el-button>
 				</el-form-item>
 			</el-form>
 		</div>
 		<div class="container">
-			<el-form ref="form" :model="form" label-width="200px">
+			<el-form ref="form" :model="oldPack" label-width="200px">
 				<el-row>
 					<el-col :span="12" class="creat-form">        
             <el-form-item label="选择历史包:">
-              <el-select v-model="form.history" placeholder="全部">
-                <el-option label="已出报告" value="a"></el-option>
-                <el-option label="未出报告" value="b"></el-option>               
+              <el-select v-model="oldPack.id" placeholder="全部" @change="selectPge">
+                <el-option
+                  v-for="item in oldPack"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>            
               </el-select>          
             </el-form-item>
             <el-form-item label="版本:">
-              <el-input v-model="form.version" placeholder="请输入内容"></el-input>            
+              <el-input v-model="listData.version" placeholder="请输入内容"></el-input>            
             </el-form-item>
             <el-form-item label="测试说明:">
               <el-input
                 type="textarea"
                 :rows="2"
                 placeholder="请输入内容"
-                v-model="form.desc">
+                v-model="listData.desc">
               </el-input>
             </el-form-item>           
           	</el-col>          
 				<el-col :span="12" class="select-form">
 		            <el-form-item label="是否收费:">
 		              <template>
-		                <el-radio-group v-model="form.ispay">
-		                  <el-radio :label="1">是</el-radio>
-		                  <el-radio :label="0">否</el-radio>
+		                <el-radio-group v-model="listData.ispay">
+		                  <el-radio :label="true">是</el-radio>
+		                  <el-radio :label="false">否</el-radio>
 		                </el-radio-group>
 		              </template>
 		            </el-form-item>           
 		            <el-form-item label="是否删档测试:">
 		              <template>
-		                <el-radio-group v-model="form.isdelv">
-		                  <el-radio :label="1">是</el-radio>
-		                  <el-radio :label="0">否</el-radio>
+		                <el-radio-group v-model="listData.isdelv">
+		                  <el-radio :label="true">是</el-radio>
+		                  <el-radio :label="false">否</el-radio>
 		                </el-radio-group>
 		              </template>
 		            </el-form-item>                
 		            <el-form-item label="项目资源是否完整:">
 		              <template>
-		                <el-radio-group v-model="form.istrue">
-		                  <el-radio :label="1">是</el-radio>
-		                  <el-radio :label="0">否</el-radio>
+		                <el-radio-group v-model="listData.istrue">
+		                  <el-radio :label="true">是</el-radio>
+		                  <el-radio :label="false">否</el-radio>
 		                </el-radio-group>
 		              </template>
 		            </el-form-item> 
 		            <el-form-item label="功能无遗留性BUG:">
 		              <template>
-		                <el-radio-group v-model="form.isbug">
-		                  <el-radio :label="1">是</el-radio>
-		                  <el-radio :label="0">否</el-radio>
+		                <el-radio-group v-model="listData.isbug">
+		                  <el-radio :label="true">是</el-radio>
+		                  <el-radio :label="false">否</el-radio>
 		                </el-radio-group>
 		              </template>
 		            </el-form-item> 
                 <el-form-item label="平台:">
                   <template>
-                    <el-radio-group v-model="form.plat">
+                    <el-radio-group v-model="listData.plat">
                       <el-radio :label="1">安卓</el-radio>
                       <el-radio :label="0">苹果</el-radio>
                     </el-radio-group>
@@ -151,8 +152,8 @@
   export default {
     data() {
       return {
-        form: {
-        },
+        form:'',
+        listData: [],
         projname: [],
         upfile: [],
         prodid: '',
@@ -162,10 +163,10 @@
         ispay:'',
         plat: '',
         istrue: '',
-        isbug: ''       
+        isbug: '',
+        oldPack:[], 
+        packid:''      
       }
-    },
-    methods: {           
     },
     mounted() {
     this.loadMenu();
@@ -175,7 +176,7 @@
           axios.defaults.crossDomain = true;
           axios.defaults.withCredentials  = true;            
           var self = this
-          axios.post('http://192.168.131.79:9000/allprod')
+          axios.post(window.dev.url + '/allprod')
           .then(function(res){
               if (res.code == 0 ) {
                 //window.location="/home"                
@@ -191,20 +192,65 @@
                console.log(res)
           });         
       },
-
+      selectPge (id) {
+        //debugger;
+        let fd = new FormData()
+        var self = this
+        this.packid = id
+        console.log("this is id",id)
+        fd.append("packid",id)
+        axios.defaults.crossDomain = true;
+        axios.defaults.withCredentials = true;
+        axios.post(window.dev.url + '/default', fd)
+            .then(function(res) {
+                if (res.code == 0) {
+                    // self.currentProd = self.prodmsd
+                    // self.tableData.push(res.packinfo)
+                    // self.tableStateData = res.testprj
+                    self.listData = res.result
+                    //window.location.hash = '#/report'
+                    console.log(res)
+                } else {
+                    console.log(res.msg)
+                }
+            });
+      },
+      selectPrj (id) {
+        console.log("this is id ",id)
+        let fd = new FormData()
+        var self = this
+        this.oldPack = []
+        fd.append('pid', id);
+        axios.defaults.crossDomain = true;
+        axios.defaults.withCredentials = true;
+        axios.post(window.dev.url + '/allpack', fd)
+            .then(function(res) {
+                if (res.code == 0) {
+                    // self.currentProd = self.prodmsd
+                    // self.tableData.push(res.packinfo)
+                    // self.tableStateData = res.testprj
+                    self.oldPack = res.list
+                    //window.location.hash = '#/report'
+                } else {
+                    console.log(res.msg)
+                }
+            });
+        },
       onSubmit() {
         var fd = new FormData()
         const prodid = this.projname.id
         console.log(prodid)
         //const upfile = this.form.upfile.file       
-        const version = this.form.version
-        const desc = this.form.desc
-        const isdelv = this.form.isdelv
-        const ispay = this.form.ispay
-        const plat = this.form.plat
-        const istrue = this.form.istrue
-        const isbug = this.form.isbug         
+        const version = this.listData.version
+        const desc = this.listData.desc
+        const isdelv = this.listData.isdelv
+        const ispay = this.listData.ispay
+        const plat = this.listData.plat
+        const istrue = this.listData.istrue
+        const isbug = this.listData.isbug  
+        const packid = this.packid       
         console.log('submit!');
+        window.localStorage.setItem('packid', packid);
         window.localStorage.setItem('prodid', prodid);
         //window.localStorage.setItem('upfile', upfile);
         window.localStorage.setItem('version', version);

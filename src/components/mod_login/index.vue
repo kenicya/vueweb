@@ -85,7 +85,7 @@
           }
           axios.defaults.crossDomain = true;
           axios.defaults.withCredentials  = true;
-          axios.post('http://192.168.131.79:9000/login',fd,config)
+          axios.post(window.dev.url + '/login',fd,config)
           .then(function(res){
               if (res.code == 0 ) {
                 window.location="./"  

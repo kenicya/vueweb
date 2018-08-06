@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 	  	<el-breadcrumb separator-class="el-icon-arrow-right" class="ano-breadcrumb">
-		  <el-breadcrumb-item :to="{ path: '/' }">用户中心</el-breadcrumb-item>
+		  <el-breadcrumb-item :to="{ path: '/user' }" @click="onSubmit">用户中心</el-breadcrumb-item>
 		  <el-breadcrumb-item>添加项目</el-breadcrumb-item>
 		</el-breadcrumb>
 		<div class="container">
@@ -101,7 +101,7 @@
           }
           axios.defaults.crossDomain = true;
           axios.defaults.withCredentials  = true;
-          axios.post('http://192.168.131.79:9000/addprj',fd,config)
+          axios.post(window.dev.url + '/addprj',fd,config)
           .then(function(res){
               if (res.code == 0 ) {
                 window.location.hash="/creatprod"

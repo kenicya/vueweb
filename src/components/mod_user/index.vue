@@ -2,7 +2,6 @@
 	<div class="container">
 	  	<el-breadcrumb separator-class="el-icon-arrow-right" class="ano-breadcrumb">
 		  <el-breadcrumb-item :to="{ path: '/user' }">用户中心</el-breadcrumb-item>
-		  <el-breadcrumb-item>添加测试需求</el-breadcrumb-item>
 		</el-breadcrumb>
 		<el-container>
 		  <el-aside width="220px" class="aside-box">
@@ -16,13 +15,16 @@
 			        v-for="(item, index) in menuList">{{item.name}}			        	
 			        </el-menu-item>
 			    </el-menu>
+				<el-button type="primary" class="new-btn">
+					<a href="#/addprod" class="add-type">新建项目 </a>
+				</el-button>
 		  </el-aside>
 		  <el-main>
 			  <div class="user-block">
 				<el-form ref="form" :model="form" label-width="100px">
 				  <el-form-item label="状态">
-				    <el-select v-model="form.status" placeholder="全部"> 
-				      <el-option label="全部" value="guangdong"></el-option>
+				    <el-select v-model="form.status" placeholder="未出报告"> 
+<!-- 				      <el-option label="全部" value="guangdong"></el-option> -->
 				      <el-option label="已出报告" value="shanghai"></el-option>
 				      <el-option label="未出报告" value="beijing"></el-option>
 				    </el-select>
@@ -145,12 +147,12 @@
         currentDate: '',
         form: {
           status: '',
-          fileList: [{name: 'food.jpeg', url: 'http://192.168.131.79:9000/upload'}, {name: 'food2.jpeg', url: 'http://192.168.131.79:9000/upload'}],
+          fileList: [{name: 'food.jpeg', url: '/upload'}, {name: 'food2.jpeg', url: '/upload'}],
            delete: '',
            pay: ''
         },
         files: [],
-        //uploadAction:'http://192.168.131.79:9000/upload',       
+        //uploadAction:'/upload',       
         dialogFormVisible: false,
         menuList: [],
         prodmsd: []
@@ -181,7 +183,7 @@
 	      fd.append('page',page)
           axios.defaults.crossDomain = true;
           axios.defaults.withCredentials  = true;	         
-          axios.post('http://192.168.131.79:9000/allprod')
+          axios.post(window.dev.url + '/allprod')
           .then(function(res){
               if (res.code == 0 ) { 
                 self.menuList = res.list  
@@ -205,7 +207,7 @@
       	  console.log("this is fd",fd)
       	  axios.defaults.crossDomain = true;
           axios.defaults.withCredentials  = true;	         
-          axios.post('http://192.168.131.79:9000/proj', fd)
+          axios.post(window.dev.url + '/proj', fd)
           .then(function(res){
               if (res.code == 0 ) { 
                 self.menuList = res.allProj  
