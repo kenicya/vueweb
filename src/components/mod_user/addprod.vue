@@ -1,17 +1,17 @@
 <template>
 	<div class="container">
 	  	<el-breadcrumb separator-class="el-icon-arrow-right" class="ano-breadcrumb">
-		  <el-breadcrumb-item :to="{ path: '/' }">用户中心</el-breadcrumb-item>
+		  <el-breadcrumb-item :to="{ path: '/user' }">用户中心</el-breadcrumb-item>
 		  <el-breadcrumb-item>添加项目</el-breadcrumb-item>
 		</el-breadcrumb>
 		<div class="container">
 			<el-row>
 				<el-col :span="8" offset="6" class="add-form">
 		      <el-form ref="form" :model="form" label-width="100px" >
-		            <el-form-item label="项目名称">
+		            <el-form-item label="项目名称:">
 		              <el-input v-model="form.name" placeholder="不能为空"></el-input>
 		            </el-form-item>    
-		            <el-form-item label="项目名称">
+		            <el-form-item label="项目图标:">
 						<el-upload
 						  class="upload-demo"
 						  :on-preview="handlePreview"
@@ -19,14 +19,14 @@
 						  :before-remove="beforeRemove"
               :http-request="uploadSectionFile"
 						  multiple
-						  :limit="3"
+						  :limit="1"
 						  :on-exceed="handleExceed"
 						  :file-list="fileList">
 						  <el-button size="small" type="primary">点击上传</el-button>
 						  <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
 						</el-upload>
             </el-form-item> 		                      
-            <el-form-item label="项目说明">
+            <el-form-item label="项目说明:">
               <el-input v-model="form.desc" placeholder=""></el-input>
             </el-form-item> 
             <el-button type="primary" @click="onSubmit" class="set-btn">保存项目</el-button>                            
@@ -99,12 +99,12 @@
                 'Content-Type': 'multipart/form-data'
               }
           }
-          axios.defaults.crossDomain = true;
-          axios.defaults.withCredentials  = true;
-          axios.post('http://192.168.131.79:9000/addprj',fd,config)
+          //axios.defaults.crossDomain = true;
+          //axios.defaults.withCredentials  = true;
+          axios.post(window.dev.url + '/addprj',fd,config)
           .then(function(res){
               if (res.code == 0 ) {
-                window.location.hash="/creatprod"
+                window.location.hash="/user"
 
               } else {
                 console.log(res.msg)

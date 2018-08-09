@@ -5,7 +5,7 @@
   "author": "fenghuiya <10385@sangfor.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "node build/dev-server.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
@@ -14,12 +14,16 @@
     "axios": "^0.18.0",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.3",
+    "express": "^4.16.3",
+    "json-serve": "^0.1.0",
     "vue": "^2.5.2",
     "vue-pdf": "^3.3.1",
     "vue-router": "^3.0.1",
     "wind-dom": "0.0.3"
   },
   "devDependencies": {
+    "http-proxy-middleware": "0.17.4",
+    "mkdirp": "0.5.1",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
@@ -65,6 +69,7 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
+    "webpack-hot-middleware": "^2.22.3",
     "webpack-merge": "^4.1.0"
   },
   "engines": {

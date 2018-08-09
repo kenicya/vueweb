@@ -9,10 +9,16 @@ import Vue from 'vue';
 import axios from 'axios';
 Vue.prototype.$http = axios;
 import logger from './logger';
+import { MessageBox, Loading } from 'element-ui';
 
 let inited = false;
-let $showErr = Vue.prototype.$showErr;
-let errInstance;
+let $showErr = function (msg) {
+    MessageBox.alert(msg.msg, msg.subtitle, {
+        type: 'error',
+        confirmButtonText: '确定'
+    });
+}
+let loadingInstance;
 
 /**
  * 初始化 axios 一些统一的配置,
@@ -29,13 +35,17 @@ export function init () {
     window.axios = axios;
 }
 
-function setMask (target, isMask) {
-    let specifiedTarget = target && target !== true ? target : false;
-    if (specifiedTarget && specifiedTarget.$mask) {
-        specifiedTarget[isMask ? '$mask' : '$unmask']();
-        return;
+function setMask (options, isMask) {
+    if (isMask) {
+        options = options || {};
+        loadingInstance = Loading.service({
+            target: options.target || 'document.body',
+            text: options.text || '加载中...',
+            background: options.bg || ''
+        });
+    }else if (loadingInstance) {
+        loadingInstance.close();
     }
-    // Vue.prototype[isMask ? '$mask' : '$unmask'].call(null, specifiedTarget || document.getElementById('body'));
 }
 
 axios.interceptors.request.use(function (config) {
@@ -68,11 +78,6 @@ let failureData = {
     }
 };
 
-function handleMsgClose () {
-    errInstance.$off('hide', handleMsgClose);
-    errInstance = null;
-}
-
 axios.interceptors.response.use(function (response) {
     let config = response.config;
     if (config.mask !== false) {
@@ -85,12 +90,11 @@ axios.interceptors.response.use(function (response) {
     }
 
     if (!response.data || !response.data.success) { //没有返回success认为是失败
-        if (!config.silent && !errInstance) {
-            errInstance = $showErr(response.data && response.data.msg ? {
+        if (!config.silent) {
+            $showErr(response.data && response.data.msg ? {
                 subtitle: '操作失败',
                 msg: response.data.msg
             } : failureData.msg);
-            errInstance.$on('hide', handleMsgClose);
             logger.warn('[ajax] [response==>json] error: %o', response);
         }
         return Promise.reject(response);

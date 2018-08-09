@@ -1,8 +1,8 @@
 <template>
 	<div class="container">
 	  	<el-breadcrumb separator-class="el-icon-arrow-right" class="ano-breadcrumb">
-		  <el-breadcrumb-item :to="{ path: '/' }">用户中心</el-breadcrumb-item>
-		  <el-breadcrumb-item>添加项目</el-breadcrumb-item>
+		  <el-breadcrumb-item :to="{ path: '/user' }">用户中心</el-breadcrumb-item>
+		  <el-breadcrumb-item>添加测试需求</el-breadcrumb-item>
 		</el-breadcrumb>
 		<div class="container">
 			<el-form ref="form" :model="form" label-width="200px">
@@ -53,15 +53,15 @@
                 </el-radio-group>
               </template>
             </el-form-item> 
-            <el-form-item label="测试文件:">
+            <el-form-item label="测试安装包文件:">
               <el-upload
                 class="upload-demo"
                 :http-request="uploadSectionFile"
                 multiple
-                :limit="3"
+                :limit="1"
                 action=""
                 :file-list="form.fileList">
-                <el-button size="small" type="primary">点击上传</el-button>
+                <el-button size="small" type="primary">安装包上传</el-button>
               </el-upload>
             </el-form-item>                        
 				  </el-col>					
@@ -137,6 +137,7 @@
       }
     },
     mounted() {
+        this.packid = window.localStorage.getItem('packid')
         this.prodid = window.localStorage.getItem('prodid');
         this.upfile = window.localStorage.getItem('upfile');
         this.version = window.localStorage.getItem('version');
@@ -146,7 +147,6 @@
         this.plat = window.localStorage.getItem('plat');
         this.istrue = window.localStorage.getItem('istrue');
         this.isbug = window.localStorage.getItem('isbug');  
-        console.log(this.prodid)
     },
     methods: { 
       uploadSectionFile(file){
@@ -154,7 +154,6 @@
         //debugger;
       },         
       onSubmit() {
-        console.log('submit!')
           var fd = new FormData()
           const isweak = this.form.isweak 
           const isprotocol = this.form.isprotocol
@@ -163,7 +162,6 @@
           const time = this.form.time 
           const isenv = this.form.isenv 
           const isselfpro = this.form.isselfpro 
-          const upfile = this.form.upfile.file
 
           fd.append('isweak',isweak)
           fd.append('isprotocol',isprotocol)          
@@ -172,9 +170,12 @@
           fd.append('time',time)
           fd.append('isenv',isenv)
           fd.append('isselfpro',isselfpro)
-
           fd.append('prodid',this.prodid)
-          fd.append('upfile',upfile)
+          fd.append('packid',this.packid)
+          if (this.form.upfile != null) {
+            const upfile = this.form.upfile.file
+            fd.append('upfile',upfile)  
+          }           
           fd.append('version',this.version)
           fd.append('desc',this.desc)
           fd.append('isdelv',this.isdelv)
@@ -188,12 +189,12 @@
                 'Content-Type': 'multipart/form-data'               
               }
           }
-          axios.defaults.crossDomain = true;
-          axios.defaults.withCredentials  = true;
-          axios.post('http://192.168.131.79:9000/addneed',fd,config)
+          //axios.defaults.crossDomain = true;
+          //axios.defaults.withCredentials  = true;
+          axios.post(window.dev.url + '/addneed',fd,config)
           .then(function(res){
               if (res.code == 0 ) { 
-                window.location.hash = '#/creatprod'
+                window.location.hash = '#/user'
               } else {
                 console.log(res.msg)
               }

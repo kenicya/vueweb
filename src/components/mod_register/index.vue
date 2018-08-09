@@ -11,7 +11,7 @@
               <el-input v-model="form.username" placeholder="请输入内容"></el-input>
             </el-form-item>              
             <el-form-item label="输入密码">
-              <el-input v-model="form.pwd" placeholder="请输入内容"></el-input>
+              <el-input type="password" v-model="form.pwd" placeholder="请输入内容"></el-input>
             </el-form-item>  
 <!--             <el-form-item label="确认密码">
               <el-input v-model="form.pwd" placeholder="请输入内容"></el-input>
@@ -75,10 +75,10 @@
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
           }
-          axios.post('http://192.168.131.79:9000/register',fd,config)
+          axios.post(window.dev.url + '/register',fd,config)
           .then(function(res){
               if (res.code == 0 ) {
-                window.location="/home"
+                window.location="./"
   
               } else {
                 console.log(res.msg)
