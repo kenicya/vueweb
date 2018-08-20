@@ -86,7 +86,7 @@ let navs = [{
         name: 'columns'
     }, {
         text: '用户反馈',
-        name: 'tech',
+        name: 'home',
     }];
 
 export default {

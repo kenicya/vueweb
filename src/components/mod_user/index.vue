@@ -10,6 +10,7 @@
 		  		<el-menu>
 			        <el-menu-item  @click="selectPro('all')" index="1-1">全部</el-menu-item>
 			        <el-menu-item 
+			        action=""
 			        :index="item.id"
 			        @click="selectPro(item.id)"
 			        :key="item.id"
@@ -114,9 +115,6 @@
 .user-block {
 	min-height: 600px;
 }
-.select-form {
-	margin: 10px 0;
-}
 .add-type {
 	text-decoration: none;
 	color: #fff;
@@ -153,7 +151,7 @@
         currentDate: '',
         form: {
           status: '',
-          fileList: [{name: 'food.jpeg', url: 'http://192.168.131.79:9000/upload'}, {name: 'food2.jpeg', url: 'http://192.168.131.79:9000/upload'}],
+          fileList: [],
            delete: '',
            pay: ''
         },
@@ -179,8 +177,9 @@
 	        })		
       },
       async loadMenu () { 
+      	//debugger;
       	 getProj('all',this)
-	      this.menuList =  ['选项一','2',3,4,5];
+	      //this.menuList =  ['选项一','2',3,4,5];
 	      var fd = new FormData()  
 	      this.menuList =  [];
 	      this.prodmsd = [];
@@ -188,7 +187,7 @@
 	      fd.append('page',page)
           //axios.defaults.crossDomain = true;
           //axios.defaults.withCredentials  = true;	         
-          axios.post(window.dev.url + '/allprod')
+          axios.post(window.dev.url + '/allprod',fd)
           .then(function(res){
               if (res.code == 0 ) { 
                 self.menuList = res.list  
@@ -209,7 +208,7 @@
       	  fd.append('page', obj.page);
       	  var pid = id == 'all' ? 0 : id
       	  fd.append('pid',pid);
-      	  console.log("this is fd",fd)
+      	  //console.log("this is fd",fd)
       	  //axios.defaults.crossDomain = true;
           //axios.defaults.withCredentials  = true;	         
           axios.post(window.dev.url + '/proj', fd)

@@ -74,7 +74,7 @@
           var fd = new FormData()
           const username = this.form.username 
           const pwd = this.form.pwd
-          console.log(username)
+          //console.log(username)
           fd.append('username',username)
           fd.append('pwd',pwd)
           let config = {

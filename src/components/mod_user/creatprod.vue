@@ -145,7 +145,7 @@
   	width: 200px;
   },
   .addprod-btn {
-    
+
   }
 
 </style> 
@@ -172,7 +172,7 @@
       }
     },
     mounted() {
-    this.loadMenu();
+      this.loadMenu();
     },
     methods: {
       async loadMenu () { 
@@ -186,7 +186,7 @@
                 
                 // self.$emit('increment',self.projname)
                 self.projname = res.list
-                console.log(self.projname)               
+                //console.log(self.projname)               
               } else {
                 console.log(res.msg)
               }

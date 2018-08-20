@@ -15,6 +15,7 @@ import amendprod from '@/components/mod_user/amendprod'
 import report from '@/components/mod_user/report'
 
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -76,6 +77,6 @@ export default new Router({
       path: '/report',
       name: 'report',
       component: report
-    } 
+    }
   ]
 })

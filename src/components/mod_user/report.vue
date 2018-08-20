@@ -7,7 +7,48 @@
             <div>
                 <el-dialog title="需求单" :visible.sync="hisDialog">
                     <el-form ref="form" :model="hisData" label-width="200px">
-                                                                                                                                      
+                    <el-form-item label="是否付费:">
+                      <template>
+                            <span v-if="hisData.isPay==true">是</span>
+                            <span v-else>否</span>
+                      </template>                      
+                    </el-form-item>
+                    <el-form-item label="是否删档测试:">
+                      <template>
+                          <span v-if="hisData.isDel==true">是</span>
+                          <span v-else>否</span>
+                      </template>
+                    </el-form-item>
+                    <el-form-item label="平台:">
+                      <template>
+                          <span v-if="hisData.plat==1">安卓</span>
+                          <span v-else>苹果</span>
+                      </template>
+                    </el-form-item> 
+                    <el-form-item label="项目资源是否完整:">
+                      <template>
+                          <span v-if="hisData.isTrue==true">是</span>
+                          <span v-else>否</span>
+                      </template>
+                    </el-form-item>
+                    <el-form-item label="功能无遗留性BUG:">
+                      <template>
+                          <span v-if="hisData.isBug==true">是</span>
+                          <span v-else>否</span>
+                      </template>
+                    </el-form-item>
+                    <el-form-item label="专门的测试环境:">
+                      <template>
+                          <span v-if="hisData.isEnv==true">是</span>
+                          <span v-else>否</span>
+                      </template>
+                    </el-form-item>  
+                    <el-form-item label="协议自测:">
+                      <template>
+                          <span v-if="hisData.isSelf==true">是</span>
+                          <span v-else>否</span>
+                      </template>
+                    </el-form-item>                                                                                                                   
                     </el-form>
                   <div slot="footer" class="dialog-footer">
                     <el-button type="primary" @click="hisDialog = fales">返 回</el-button>
@@ -40,6 +81,10 @@
                     <el-table-column prop="name" label="测试项" width="300">
                     </el-table-column>
                     <el-table-column prop="state" label="状态" width="300">
+                        <template slot-scope="scope">
+                            <span v-if="state==1">通过</span>
+                            <span v-else>未通过</span>
+                        </template>
                     </el-table-column>
                     <el-table-column prop="downReport" label="报告下载" width="300">
                         <template slot-scope="scope">
@@ -144,6 +189,7 @@ export default {
             let fd = new FormData()
             var self = this           
             //this.tableData = []
+            fd.append('packid', this.id);
             // axios.defaults.crossDomain = true;
             // axios.defaults.withCredentials = true;
             axios.post(window.dev.url + '/packinfo', fd)
