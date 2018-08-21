@@ -33,16 +33,11 @@ function initApp () {
 }
 
 async function checkLogin () {
-    // axios.defaults.crossDomain = true;
-    // axios.defaults.withCredentials  = true;
+
     axios.post(window.dev.url + '/checklogin')
-    // axios.post(window.dev.url + 'http://192.168.131.79:9000/checklogin')
     .then(function(res){
         if (res.state == 1 ) {
             window.dev.username =  res.username
-            // window.dev = {
-            //     username: res.username
-            // }
         } else {
           window.location.hash="/home"
         }
@@ -53,7 +48,6 @@ async function checkLogin () {
 function init() {
      window.dev = {
         url: '',
-        //url:'http://192.168.129.33:8000',
         username: ''
     }
 }

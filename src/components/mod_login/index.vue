@@ -83,8 +83,6 @@
                 
               }
           }
-          //axios.defaults.crossDomain = true;
-          //axios.defaults.withCredentials  = true;
           axios.post(window.dev.url + '/login',fd,config)
           .then(function(res){
               if (res.code == 0 ) {

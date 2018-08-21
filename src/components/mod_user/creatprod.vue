@@ -201,8 +201,6 @@
         var self = this
         this.packid = id
         fd.append("packid",id)
-        // axios.defaults.crossDomain = true;
-        // axios.defaults.withCredentials = true;
         axios.post(window.dev.url + '/default', fd)
             .then(function(res) {
                 if (res.code == 0) {
@@ -222,8 +220,6 @@
         var self = this
         this.oldPack = []
         fd.append('pid', id);
-        // axios.defaults.crossDomain = true;
-        // axios.defaults.withCredentials = true;
         axios.post(window.dev.url + '/allpack', fd)
             .then(function(res) {
                 if (res.code == 0) {

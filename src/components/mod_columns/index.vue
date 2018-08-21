@@ -23,7 +23,7 @@ export default {
                 this.options.title.text = 'Charts 入门示例' + String(+new Date());
             },
             async reload () {
-                let rs = await axios.post('/user/userinfo', {
+                let rs = await axios.post(window.dev.url + '/user/userinfo', {
                         option: 'test'
                     });
                 if (rs.success) {

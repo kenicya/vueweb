@@ -70,23 +70,23 @@ let navs = [{
         name: 'prod',
         subnav: [{
             text: '压力测试',
-            name: 'pressureTest'
+            name: 'prottotest'
         },{
             text: '协议测试',
-            name: 'UITest',
-        },{
-            text: '性能测试',
-            name: 'SystemTest'
+            name: 'prottotest',
         },{
             text: '弱网测试',
-            name: 'NetTest'
+            name: 'nettest'
+        },{
+            text: '客户端性能测试',
+            name: 'clienttest'
         }]
     }, {
         text: '下载中心',
         name: 'columns'
     }, {
         text: '用户反馈',
-        name: 'home',
+        name: 'tech',
     }];
 
 export default {

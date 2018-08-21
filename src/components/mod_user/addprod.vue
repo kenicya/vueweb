@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 	  	<el-breadcrumb separator-class="el-icon-arrow-right" class="ano-breadcrumb">
-		  <el-breadcrumb-item :to="{ path: '/user' }">用户中心</el-breadcrumb-item>
+		  <el-breadcrumb-item :to="{ path: '/user' }" @click="onSubmit">用户中心</el-breadcrumb-item>
 		  <el-breadcrumb-item>添加项目</el-breadcrumb-item>
 		</el-breadcrumb>
 		<div class="container">
@@ -90,7 +90,7 @@
           const name = this.form.name 
           const desc = this.form.desc
           let upfile = this.file.file
-          //debugger;
+          debugger;
           fd.append('name',name)
           fd.append('desc',desc)
           fd.append('upfile', upfile)
@@ -99,8 +99,6 @@
                 'Content-Type': 'multipart/form-data'
               }
           }
-          //axios.defaults.crossDomain = true;
-          //axios.defaults.withCredentials  = true;
           axios.post(window.dev.url + '/addprj',fd,config)
           .then(function(res){
               if (res.code == 0 ) {
@@ -125,7 +123,26 @@
       },
       beforeRemove(file, fileList) {
         return this.$confirm(`确定移除 ${ file.name }？`);
-      }      
+      },
+      // beforeAvatarUpload (file) {
+      //   var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
+      //   const extension = testmsg === 'png'
+      //   const extemsion2 = testmsg === 'jpg'
+      //   const isLt2M = file.size / 1024 / 1024 < 10
+      //   if(!extension && !extemsion2) {
+      //     this.$message({
+      //       message: '上传的图标只能为PNG，JPG格式！',
+      //       type: 'warning'
+      //     });
+      //   }
+      //   if(!isLt2M) {
+      //     this.$message({
+      //       message: '上传文件大小不能超过10MB',
+      //       type: 'warning'
+      //     });
+      //   }
+      //   return extemsion || extemsion2 && isLt2M
+      // }    
     }
   }
 

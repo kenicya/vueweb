@@ -3,6 +3,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/mod_home/index'
+//import pressurettest from '@/components/mod_home/pressurettest'
+import clienttest from '@/components/mod_home/clienttest'
+import nettest from '@/components/mod_home/nettest'
+import prottotest from '@/components/mod_home/prottotest'
 import prodIndex from '@/components/mod_prod/index'
 import prodDetail from '@/components/mod_prod/detail'
 import columns from '@/components/mod_columns/index'
@@ -77,6 +81,26 @@ export default new Router({
       path: '/report',
       name: 'report',
       component: report
+    },
+    // {
+    //   path: '/pressurettest',
+    //   name: 'pressurettest',
+    //   component: pressurettest
+    // },
+    {
+      path: '/clienttest',
+      name: 'clienttest',
+      component: clienttest
+    },
+    {
+      path: '/nettest',
+      name: 'nettest',
+      component: nettest
+    },
+    {
+      path: '/prottotest',
+      name: 'prottotest',
+      component: prottotest
     }
   ]
 })

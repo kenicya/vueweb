@@ -29,10 +29,10 @@
             <template>
               <el-form-item>
                 <!-- `checked` 为 true 或 false -->
-                <el-checkbox v-model="form.issafe">客户端安全测试(测试时间1~2天/人)</el-checkbox>
+                        <el-checkbox v-model="form.issafe">客户端安全测试(测试时间1~2天/人)</el-checkbox>
               </el-form-item>
             </template> 
-            <el-form-item label="预计完成时间:">
+            <el-form-item label="预期完成时间:">
               <el-input v-model="form.time" placeholder="2018-10-12"></el-input>            
             </el-form-item>                                                             
           </el-col>     
@@ -53,7 +53,7 @@
                 </el-radio-group>
               </template>
             </el-form-item> 
-            <el-form-item label="测试安装包文件:">
+            <el-form-item label="游戏安装包上传:">
               <el-upload
                 class="upload-demo"
                 :http-request="uploadSectionFile"
@@ -189,8 +189,6 @@
                 'Content-Type': 'multipart/form-data'               
               }
           }
-          //axios.defaults.crossDomain = true;
-          //axios.defaults.withCredentials  = true;
           axios.post(window.dev.url + '/addneed',fd,config)
           .then(function(res){
               if (res.code == 0 ) { 

@@ -1,8 +1,7 @@
 <template>
 	<div class="container">
 	  	<el-breadcrumb separator-class="el-icon-arrow-right" class="ano-breadcrumb">
-		  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-		  <el-breadcrumb-item>用户中心</el-breadcrumb-item>
+		  <el-breadcrumb-item :to="{ path: '/user' }">用户中心</el-breadcrumb-item>
 		</el-breadcrumb>
 		<el-container>
 		  <el-aside width="220px" class="aside-box">
@@ -21,14 +20,12 @@
 			        <span slot="title"><a href="#/addprod" class="addprod-Btn">新建项目</a></span>
 			      </el-menu-item>			        
 			    </el-menu>
-
 		  </el-aside>
 		  <el-main>
 			  <div class="user-block">
 				<el-form ref="form" :model="form" label-width="100px">
 				  <el-form-item label="状态">
-				    <el-select v-model="form.status" placeholder="全部"> 
-				      <el-option label="测试中" value="guangdong"></el-option>
+				    <el-select v-model="form.status" placeholder="未出报告"> 
 				      <el-option label="已出报告" value="shanghai"></el-option>
 				      <el-option label="未出报告" value="beijing"></el-option>
 				    </el-select>
@@ -151,15 +148,15 @@
         currentDate: '',
         form: {
           status: '',
-          fileList: [],
+          fileList: {},
            delete: '',
            pay: ''
         },
-        files: [],
-        //uploadAction:'http://192.168.131.79:9000/upload',       
+        files: {},
+        //uploadAction:'/upload',       
         dialogFormVisible: false,
-        menuList: [],
-        prodmsd: []
+        menuList: {},
+        prodmsd: {}
       };
     },
     mounted() {
@@ -207,10 +204,7 @@
 		  self = obj;
       	  fd.append('page', obj.page);
       	  var pid = id == 'all' ? 0 : id
-      	  fd.append('pid',pid);
-      	  //console.log("this is fd",fd)
-      	  //axios.defaults.crossDomain = true;
-          //axios.defaults.withCredentials  = true;	         
+      	  fd.append('pid',pid);    
           axios.post(window.dev.url + '/proj', fd)
           .then(function(res){
               if (res.code == 0 ) { 

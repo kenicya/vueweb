@@ -73,7 +73,9 @@
             </el-form>
         </div>
         <div class="container">
-            <span>测试说明：</span>
+            <el-form ref="form" :model="tableData" label-width="100px">
+                <span>测试说明：{{tableData.desc}}</span>
+            </el-form>
         </div>
         <div class="container">
             <el-form ref="form" :model="tableStateData" label-width="100px">
@@ -171,11 +173,8 @@ export default {
         showHisDialog1 () {
             let fd = new FormData()
             var self = this
-            // this.tableData = []
             this.hisDialog = true
             fd.append('packid', this.id);
-            // axios.defaults.crossDomain = true;
-            // axios.defaults.withCredentials = true;
             axios.post(window.dev.url + '/testinfo', fd)
                 .then(function(res) {
                     if (res.code == 0) {
@@ -190,12 +189,10 @@ export default {
             var self = this           
             //this.tableData = []
             fd.append('packid', this.id);
-            // axios.defaults.crossDomain = true;
-            // axios.defaults.withCredentials = true;
             axios.post(window.dev.url + '/packinfo', fd)
                 .then(function(res) {
                     if (res.code == 0) {
-                        // self.currentProd = self.prodmsd
+
                         self.tableData.push(res.packinfo)
                         self.tableStateData = res.testprj
                     } else {
