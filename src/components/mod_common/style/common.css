@@ -28,3 +28,6 @@ input, textarea, keygen, select, button{
 .ano-breadcrumb {
     margin: 10px 0;
 }
+.text-danger{
+    color: #ff1e1e;
+}
