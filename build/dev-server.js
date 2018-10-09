@@ -37,8 +37,7 @@ compiler.plugin('compilation', function (compilation) {
 
 // 请求代码与数据mock
 app.use(require('@self/mock-plugin')({
-    target: 'http://192.168.131.100:9000'
-    // target: 'http://192.168.131.100:9000'
+    target: 'http://192.168.131.78:5000'
 }));
   
 

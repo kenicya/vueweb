@@ -23,7 +23,7 @@
                     </el-menu>
                 </el-col>
                 <el-col v-if="username" :span="4" class="header-member">
-                    <a href="#/user">当前用户:{{username}}</a>
+                    <a href="#/admin">管理员:{{username}}</a>
                 </el-col>
                 <el-col v-else :span="4" class="header-member">
                     <a href="#/login">登陆</a>
@@ -70,24 +70,26 @@ let navs = [{
         name: 'prod',
         subnav: [{
             text: '压力测试',
-            name: 'prottotest'
+            name: 'pressureTest'
         },{
             text: '协议测试',
-            name: 'prottotest',
+            name: 'UITest',
+        },{
+            text: '性能测试',
+            name: 'SystemTest'
         },{
             text: '弱网测试',
-            name: 'nettest'
-        },{
-            text: '客户端性能测试',
-            name: 'clienttest'
+            name: 'NetTest'
         }]
     }, {
         text: '下载中心',
         name: 'columns'
-    }, {
+    }
+    , {
         text: '用户反馈',
         name: 'tech',
-    }];
+    }
+    ];
 
 export default {
     name: 'ComHeader',
