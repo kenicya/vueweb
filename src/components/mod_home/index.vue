@@ -8,12 +8,11 @@
     <div class="cont_title" >
         <h3>我们的服务</h3>
     </div>
-
-    <div class="container mod-about">
-        <img src="/static/img/7.png" alt="">
+    <div class="h-container mod-about">
         <img src="/static/img/6.png" alt="">
         <img src="/static/img/7.png" alt="">
         <img src="/static/img/8.png" alt="">
+        <img src="/static/img/9.png" alt="">
     </div> 
     <div class="container">
       <el-carousel :interval="4000" type="card" height="300px">
@@ -34,7 +33,12 @@
   .el-carousel__item img {
     height: 300px;
   }
-
+  .h-container {
+    margin-top: 20px;
+    width: 1250px;
+    margin-left: auto;
+    margin-right: auto;    
+  }
   .el-carousel__item:nth-child(2n) {
      background-color: #020001;
   }
@@ -43,6 +47,6 @@
      background-color: #020001;
   }
   .mod-about {
-    margin-top: 60px;
+    background-color: #4da4ed;
   }
 </style>

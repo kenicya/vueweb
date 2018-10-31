@@ -23,7 +23,7 @@ export default {
                 this.options.title.text = 'Charts 入门示例' + String(+new Date());
             },
             async reload () {
-                let rs = await axios.post(window.dev.url + '/user/userinfo', {
+                let rs = await axios.post(window.dev.url + "/api" + '/user/userinfo', {
                         option: 'test'
                     });
                 if (rs.success) {
@@ -48,7 +48,7 @@ export default {
                     yAxis: {},
                     series: [{
                         name: '销量',
-                        type: 'bar',
+                        type: 'line',
                         data: [5, 20, 36, 10, 10, 20]
                     }]
                 }

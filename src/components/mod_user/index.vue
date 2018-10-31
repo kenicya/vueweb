@@ -10,8 +10,8 @@
 			        <el-menu-item  @click="selectPro('all')" index="1-1">全部</el-menu-item>
 			        <el-menu-item 
 			        action=""
-			        :index="item.id"
-			        @click="selectPro(item.id)"
+			        index="item.id"
+			        @click="selectPro(item.id,item.name)"
 			        :key="item.id"
 			        v-for="(item, index) in menuList">{{item.name}}			        	
 			        </el-menu-item>
@@ -39,7 +39,7 @@
 			    	</el-col>
 				  <el-col :span="6" v-for="item in prodmsd" >
 				    <el-card class="user-list-card" >
-				      <img :src='item.iconurl' @click="reqdesc(item.Id)" class="image" width="100%">
+				      <img :src='item.iconurl' @click="reqdesc(item.Id)" class="image" width="165px" height="150px">
 				      <div class="user-list-dec">
 				        <span>{{item.packname}}</span>
 				        <div class="bottom clearfix">
@@ -85,7 +85,7 @@
 .add-btn{
     border: 1px solid #ddd;
     padding: 10px 20px;
-    font-size: 40px;
+    font-size: 105px;
     color: #ddd;
 }
 .aside-box {
@@ -152,8 +152,7 @@
            delete: '',
            pay: ''
         },
-        files: {},
-        //uploadAction:'/upload',       
+        files: {},      
         dialogFormVisible: false,
         menuList: {},
         prodmsd: {}
@@ -163,32 +162,31 @@
 		this.loadMenu();
     },
     methods: {
-      selectPro (id) {
+      selectPro (id,name) {
+      	window.localStorage.setItem('prodid', id);
+      	window.localStorage.setItem('name', name);
+      	console.log("this is prodid", id)
       	getProj(id,this)
       },
       reqdesc (id) {     	  
-      	  window.localStorage.setItem('packid',id)   
+      	  window.localStorage.setItem('packid',id);
 	        this.$router.push({
 	          path: '/report',
 	          params:{}
 	        })		
       },
       async loadMenu () { 
-      	//debugger;
       	 getProj('all',this)
 	      //this.menuList =  ['选项一','2',3,4,5];
 	      var fd = new FormData()  
 	      this.menuList =  [];
 	      this.prodmsd = [];
 	      var self = this
-	      fd.append('page',page)
-          //axios.defaults.crossDomain = true;
-          //axios.defaults.withCredentials  = true;	         
-          axios.post(window.dev.url + '/allprod',fd)
+	      fd.append('page',page)     
+          axios.post(window.dev.url + "/api" + '/allprod',fd)
           .then(function(res){
               if (res.code == 0 ) { 
-                self.menuList = res.list  
-                //self.prodmsd = res.list                              
+                self.menuList = res.list                             
               } else {
                 console.log(res.msg)
               }
@@ -205,7 +203,7 @@
       	  fd.append('page', obj.page);
       	  var pid = id == 'all' ? 0 : id
       	  fd.append('pid',pid);    
-          axios.post(window.dev.url + '/proj', fd)
+          axios.post(window.dev.url + "/api" + '/proj', fd)
           .then(function(res){
               if (res.code == 0 ) { 
                 self.menuList = res.allProj  

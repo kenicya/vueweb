@@ -1,64 +1,69 @@
 <template>
+  <div class="press-block">
 		<div class="container">
-			<el-form ref="form" :model="oldPack" label-width="200px">
+			<el-form ref="form" :model="form" label-width="200px">
 				<el-row>
-					<el-col :span="12" class="creat-form">             
-          </el-col>          
-<!--   				<el-col :span="12" class="select-form">             
-  				</el-col>	 -->				
+					<el-col :span="12" class="pressure-creat-form"> 
+            <h2>弱网测试</h2>
+            <p>XXXXXXXXXXXXXXXXXXXXXXXX<br>
+              CCCCCCCCCCCCCCCCCCCCCCCCC<br>
+            ppppppppppppppppppppppp</p>  
+            <a class="press-btn" href="#/user">我要测试</a>          
+          </el-col>    
+          <el-col :span="12" class="pressure-creat-form"> 
+            <el-carousel trigger="click" height="300px">
+              <el-carousel-item v-for="item in 5" :key="item">
+                <img :src="`/static/img/${item}.png`">
+              </el-carousel-item>
+            </el-carousel>      
+          </el-col>                 				
 				</el-row>			
 			</el-form>
-<!-- 			<div class="container">
-				<el-col :span="24" class="bottom-form">
-					<el-button type="primary" @click="onSubmit" class="new-btn">下一步</el-button>
-				</el-col>			
-			</div> -->
-		</div>			
+		</div>
+   </div>			
 </template>
 
-<style>h
-
-	.creat-block {
-		margin-left: 400px;
+<style>
+  .press-block {
+    margin-bottom: 5px;
+    background-color: #3486e8;   
+  }
+	.pressure-creat-form {
+    color: #fff;
+    height: 434px;
+    padding: 80px 0 80px 60px;
+    background-color: #3486e8;
 	}
-	.creat-form {
-    margin: 15px 0;
-    height: 400px;
-	padding: 10px;
-	padding-right: 100px;
-    border: 1px solid #ddd;
-	}
-  .select-form {
-    margin: 15px 0;
+  .pressure-select-form {
+/*    margin: 15px 0;
     height: 400px;
     padding: 10px;
     border: 1px solid #ddd;
-    border-left: none; 
+    border-left: none; */
   }
-  .add-type {
-    text-decoration: none;
+  .press-btn {
+    min-width: 170px;
+    padding: 12px 47px;
+    font-size: 18px;
+    text-align: center;
+    display: inline-block;
+    border: 1px solid #fff;
+    border-radius: 4px;
     color: #fff;
+    text-decoration: none;    
   }
-  .creat-list {
-    width: 200px;
-  }
-  .upload-demo {
-    width: 100px;
-    margin-left: 20px;
-  }
-  .history-list {
-    width: 150px;
-
-  }
-  .next-type {
-  	text-decoration: none;
-  	color: #fee;
-  }
-  .bottom-form {
-  	margin-left: 560px;
-  }
-  .select-list {
-  	width: 200px;
-  }
-
 </style> 
+
+<script>
+  export default {
+    data() {
+      return {
+        form: {}     
+      }
+    },
+    methods: {
+      onSubmit() {
+      },           
+    }
+  }
+</script>

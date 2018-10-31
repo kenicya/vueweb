@@ -70,7 +70,7 @@ let navs = [{
         name: 'prod',
         subnav: [{
             text: '压力测试',
-            name: 'prottotest'
+            name: 'pressurettest'
         },{
             text: '协议测试',
             name: 'prottotest',
@@ -87,6 +87,9 @@ let navs = [{
     }, {
         text: '用户反馈',
         name: 'tech',
+    },{
+        text: '机器人专栏',
+        name: 'robot'
     }];
 
 export default {

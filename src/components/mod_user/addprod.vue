@@ -6,7 +6,7 @@
 		</el-breadcrumb>
 		<div class="container">
 			<el-row>
-				<el-col :span="8" offset="6" class="add-form">
+				<el-col :span="8" class="add-form">
 		      <el-form ref="form" :model="form" label-width="100px" >
 		            <el-form-item label="项目名称:">
 		              <el-input v-model="form.name" placeholder="不能为空"></el-input>
@@ -14,13 +14,11 @@
 		            <el-form-item label="项目图标:">
 						<el-upload
 						  class="upload-demo"
-						  :on-preview="handlePreview"
-						  :on-remove="handleRemove"
-						  :before-remove="beforeRemove"
-              :http-request="uploadSectionFile"
+              :on-success="uploadsuccess"
 						  multiple
+              with-credentials
 						  :limit="1"
-						  :on-exceed="handleExceed"
+              action="http://192.168.129.32:1000/submit"
 						  :file-list="fileList">
 						  <el-button size="small" type="primary">点击上传</el-button>
 						  <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
@@ -42,6 +40,7 @@
 <style>
   .add-form {
     margin-top: 200px;
+    margin-left: 300px;
     text-align: center;
   }
   .aside-header {
@@ -74,32 +73,33 @@
       return {
         form: {
           name: '',
-          desc: '',
-          fileList: [{name: 'food.jpeg', url: ''}, {name: 'food2.jpeg', url: ''}]
-        }
+          desc: ''         
+        },
+        fileList: [],
+        fileUrl: ""
       }
     },
     methods: {
-      uploadSectionFile(file){
-        this.file = file
-        //debugger;
-      },
+      // uploadSectionFile(file){
+      //   this.file = file
+      //   //debugger;
+      // },
       onSubmit() {
           var fd = new FormData()
           var fileValue = document.querySelector('.upload-demo')
           const name = this.form.name 
           const desc = this.form.desc
-          let upfile = this.file.file
-          debugger;
+          //let upfile = this.file.file
+          fd.append('fileurl',this.fileUrl)
           fd.append('name',name)
           fd.append('desc',desc)
-          fd.append('upfile', upfile)
+          // fd.append('upfile', upfile)
           let config = {
             headers: {
                 'Content-Type': 'multipart/form-data'
               }
           }
-          axios.post(window.dev.url + '/addprj',fd,config)
+          axios.post(window.dev.url + "/api" + '/addprj',fd,config)
           .then(function(res){
               if (res.code == 0 ) {
                 window.location.hash="/user"
@@ -112,37 +112,11 @@
                console.log(res)
           });
       },
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePreview(file) {
-        console.log(file);
-      },
-      handleExceed(files, fileList) {
-        this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-      },
-      beforeRemove(file, fileList) {
-        return this.$confirm(`确定移除 ${ file.name }？`);
-      },
-      // beforeAvatarUpload (file) {
-      //   var testmsg=file.name.substring(file.name.lastIndexOf('.')+1)
-      //   const extension = testmsg === 'png'
-      //   const extemsion2 = testmsg === 'jpg'
-      //   const isLt2M = file.size / 1024 / 1024 < 10
-      //   if(!extension && !extemsion2) {
-      //     this.$message({
-      //       message: '上传的图标只能为PNG，JPG格式！',
-      //       type: 'warning'
-      //     });
-      //   }
-      //   if(!isLt2M) {
-      //     this.$message({
-      //       message: '上传文件大小不能超过10MB',
-      //       type: 'warning'
-      //     });
-      //   }
-      //   return extemsion || extemsion2 && isLt2M
-      // }    
+      uploadsuccess(response, file, fileList) {
+        var fileUrl = response.fileUrl  
+        this.fileUrl = fileUrl
+        //console.log("this is url", this.fileUrl)
+      }    
     }
   }
 

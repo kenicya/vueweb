@@ -19,6 +19,7 @@
     "vue": "^2.5.2",
     "vue-pdf": "^3.3.1",
     "vue-router": "^3.0.1",
+    "vue-simple-uploader": "^0.5.4",
     "wind-dom": "0.0.3"
   },
   "devDependencies": {

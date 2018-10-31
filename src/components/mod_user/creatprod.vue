@@ -5,9 +5,9 @@
 		  <el-breadcrumb-item>添加测试需求</el-breadcrumb-item>
 		</el-breadcrumb>
 		<div class="creat-block">
-			<el-form ref="form" :model="projname" label-width="80px">
+			<el-form ref="form" label-width="80px">
 				<el-form-item label="项目名称">
-          <el-select v-model="projname.id" placeholder="全部" @change="selectPrj">
+          <el-select v-model="pName" placeholder="请选择项目" @change="selectPrj">
             <el-option
               v-for="item in projname"
               :key="item.id"
@@ -22,9 +22,9 @@
 			</el-form>
 		</div>
 		<div class="container">
-			<el-form ref="form" :model="oldPack" label-width="200px">
+			<el-form ref="form" label-width="200px">
 				<el-row>
-					<el-col :span="12" class="creat-form">        
+					<el-col :span="12" class="u-creat-form">        
             <el-form-item label="选择历史安装包:">
               <el-select v-model="oldPack.id" placeholder="全部" @change="selectPge">
                 <el-option
@@ -36,18 +36,21 @@
               </el-select>          
             </el-form-item>
             <el-form-item label="版本:">
-              <el-input v-model="listData.version" placeholder="请输入内容"></el-input>            
+              <el-input v-model="listData.version" placeholder="输入版本号"></el-input>            
             </el-form-item>
+            <el-form-item label="测试安装包名称:">
+              <el-input v-model="listData.name" :disabled="isEnable" placeholder="输入包名，建议中文，方便测试人员查找"></el-input>            
+            </el-form-item>            
             <el-form-item label="测试说明:">
               <el-input
                 type="textarea"
                 :rows="2"
-                placeholder="请输入内容"
+                placeholder="该版本需要的测试点，例如：装备强化"
                 v-model="listData.desc">
               </el-input>
             </el-form-item>           
-          	</el-col>          
-				<el-col :span="12" class="select-form">
+        </el-col>          
+				<el-col :span="12" class="u-select-form">
 		            <el-form-item label="是否收费:">
 		              <template>
 		                <el-radio-group v-model="listData.ispay">
@@ -101,22 +104,21 @@
 </template>
 
 <style>
-
 	.creat-block {
 		margin-left: 400px;
 	}
-	.creat-form {
+	.u-creat-form {
     margin: 15px 0;
-    height: 400px;
-	padding: 10px;
-	padding-right: 100px;
-    border: 1px solid #ddd;
+    height: 350px;
+	  padding: 10px;
+	  padding-right: 100px;
+    border: 1px solid #252323;
 	}
-  .select-form {
+  .u-select-form {
     margin: 15px 0;
-    height: 400px;
+    height: 350px;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #252323;
     border-left: none; 
   }
   .add-type {
@@ -161,6 +163,7 @@
         upfile: [],
         prodid: '',
         version: '',
+        name: '',
         desc: '',
         isdelv: '',
         ispay:'',
@@ -168,25 +171,25 @@
         istrue: '',
         isbug: '',
         oldPack:[], 
-        packid:''      
+        packid:'',
+        isEnable: false,
+        pName: ''
       }
     },
     mounted() {
+      this.pName = window.localStorage.getItem('name')
+      this.pid = window.localStorage.getItem('prodid')
+      console.log("this is pid", this.pid) 
       this.loadMenu();
+      this.selectPrj(this.pid);
     },
     methods: {
-      async loadMenu () { 
-          axios.defaults.crossDomain = true;
-          axios.defaults.withCredentials  = true;            
-          var self = this
-          axios.post(window.dev.url + '/allprod')
+      async loadMenu () {            
+          var self = this          
+          axios.post(window.dev.url + "/api" + '/allprod')
           .then(function(res){
               if (res.code == 0 ) {
-                //window.location="/home"                
-                
-                // self.$emit('increment',self.projname)
-                self.projname = res.list
-                //console.log(self.projname)               
+                self.projname = res.list          
               } else {
                 console.log(res.msg)
               }
@@ -196,19 +199,15 @@
           });         
       },
       selectPge (id) {
-        //debugger;
         let fd = new FormData()
         var self = this
         this.packid = id
         fd.append("packid",id)
-        axios.post(window.dev.url + '/default', fd)
+        axios.post(window.dev.url + "/api" + '/default', fd)
             .then(function(res) {
                 if (res.code == 0) {
-                    // self.currentProd = self.prodmsd
-                    // self.tableData.push(res.packinfo)
-                    // self.tableStateData = res.testprj
+                    self.isEnable = true
                     self.listData = res.result
-                    //window.location.hash = '#/report'
                     console.log(res)
                 } else {
                     console.log(res.msg)
@@ -220,14 +219,10 @@
         var self = this
         this.oldPack = []
         fd.append('pid', id);
-        axios.post(window.dev.url + '/allpack', fd)
+        axios.post(window.dev.url + "/api" + '/allpack', fd)
             .then(function(res) {
                 if (res.code == 0) {
-                    // self.currentProd = self.prodmsd
-                    // self.tableData.push(res.packinfo)
-                    // self.tableStateData = res.testprj
                     self.oldPack = res.list
-                    //window.location.hash = '#/report'
                 } else {
                     console.log(res.msg)
                 }
@@ -235,10 +230,10 @@
         },
       onSubmit() {
         var fd = new FormData()
-        const prodid = this.projname.id
-        console.log(prodid)
-        //const upfile = this.form.upfile.file       
+        const prodid = this.pid
+        console.log("this is prodid",prodid)    
         const version = this.listData.version
+        const pName = this.listData.name
         const desc = this.listData.desc
         const isdelv = this.listData.isdelv
         const ispay = this.listData.ispay
@@ -246,17 +241,22 @@
         const istrue = this.listData.istrue
         const isbug = this.listData.isbug  
         const packid = this.packid       
-        console.log('submit!');
         window.localStorage.setItem('packid', packid);
-        window.localStorage.setItem('prodid', prodid);
-        //window.localStorage.setItem('upfile', upfile);
+        // window.localStorage.setItem('prodid', prodid);
+        window.localStorage.setItem('name', pName);
         window.localStorage.setItem('version', version);
         window.localStorage.setItem('desc', desc);
         window.localStorage.setItem('isdelv', isdelv);
         window.localStorage.setItem('ispay', ispay);
         window.localStorage.setItem('plat', plat);
         window.localStorage.setItem('istrue', istrue);
-        window.localStorage.setItem('isbug', isbug);        
+        window.localStorage.setItem('isbug', isbug);  
+        if (this.isEnable) {
+            window.localStorage.setItem('isEnable', 1); 
+        }else{
+            window.localStorage.setItem('isEnable', "");
+        }
+        window.localStorage.setItem('path', this.listData.path)   
         this.$router.push({
           path: '/amendprod',
           params:{}

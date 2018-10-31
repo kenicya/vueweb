@@ -103,7 +103,7 @@
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
           }
-          axios.post(window.dev.url + '/register',fd,config)
+          axios.post(window.dev.url + "/api" + '/register',fd,config)
           .then(function(res){
               if (res.code == 0 ) {
                 window.location="./"

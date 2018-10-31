@@ -9,6 +9,9 @@ import './components/mod_common/style/common.css';
 import ComHeader from './components/mod_common/header/header.vue';
 import router from './router';
 import * as Ajax from './util/ajax';
+import uploader from 'vue-simple-uploader'
+import { ftruncate } from 'fs';
+//import App from './App.vue'
 
 Vue.use(ElementUI);
 // 初始化 ajax
@@ -33,16 +36,43 @@ function initApp () {
 }
 
 async function checkLogin () {
-
-    axios.post(window.dev.url + '/checklogin')
-    .then(function(res){
-        if (res.state == 1 ) {
-            window.dev.username =  res.username
-        } else {
-          window.location.hash="/home"
+    //console.log('>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<')
+    console.log(window.location.href)
+    var url = window.location.href
+    var splitCodes = url.split('code=')
+    console.log(splitCodes)
+    if(splitCodes.length == 2){
+        var fd = new FormData()
+        fd.append('code',splitCodes[1])
+        let config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'            
+              }
         }
-        initApp();
-    })
+        axios.post(window.dev.url + "/api" + '/ssologin',fd,config)
+        .then(function(res){
+            console.log(res)
+            var stateObject = {};
+            var title = "lttest";
+            var newUrl = "http://192.168.129.33:8100/#/home";
+            history.pushState(stateObject,title,newUrl);
+            window.dev.username =  res.username
+            // window.location.hash="#/home"
+           
+            initApp();
+        })
+    }else{
+        axios.post(window.dev.url + "/api" +  '/checklogin')
+        .then(function(res){
+            if (res.state == 1 ) {
+                window.dev.username =  res.username
+            } else {
+              window.location.hash="/home"
+            }
+            initApp();
+        })
+    }
+    
 }
 
 function init() {

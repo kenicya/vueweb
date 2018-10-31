@@ -1,9 +1,9 @@
-// 路由配置
+﻿// 路由配置
 
 import Vue from 'vue'
 import Router from 'vue-router'
 import home from '@/components/mod_home/index'
-//import pressurettest from '@/components/mod_home/pressurettest'
+import pressurettest from '@/components/mod_home/pressurettest'
 import clienttest from '@/components/mod_home/clienttest'
 import nettest from '@/components/mod_home/nettest'
 import prottotest from '@/components/mod_home/prottotest'
@@ -17,6 +17,7 @@ import addprod from '@/components/mod_user/addprod'
 import creatprod from '@/components/mod_user/creatprod'
 import amendprod from '@/components/mod_user/amendprod'
 import report from '@/components/mod_user/report'
+import robot from '@/components/mod_robot/index'
 
 
 
@@ -82,11 +83,11 @@ export default new Router({
       name: 'report',
       component: report
     },
-    // {
-    //   path: '/pressurettest',
-    //   name: 'pressurettest',
-    //   component: pressurettest
-    // },
+    {
+      path: '/robot',
+      name: 'robot',
+      component: robot
+    },
     {
       path: '/clienttest',
       name: 'clienttest',
@@ -101,6 +102,11 @@ export default new Router({
       path: '/prottotest',
       name: 'prottotest',
       component: prottotest
+    },
+    {
+      path: '/pressurettest',
+      name: 'pressurettest',
+      component: pressurettest
     }
   ]
 })

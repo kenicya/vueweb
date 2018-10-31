@@ -7,10 +7,17 @@
         </el-col> 
         <el-col :span="8" class="reg-form">
           <el-form ref="form" :model="form" label-width="100px" >
-            <el-form-item label="邮箱账号">
-              <el-input v-model="form.username" placeholder="请输入内容"></el-input>
+            <el-form-item 
+              label="邮箱账号" 
+              prop="username"
+              :rules="[
+                { required: true, message: '请输入邮箱地址'},
+                { type: 'number', message: '请输入正确的邮箱地址'}
+              ]"
+            >
+              <el-input v-model.number="form.username" placeholder="请输入内容"></el-input>
             </el-form-item>              
-            <el-form-item label="输入密码" prop="pass">
+            <el-form-item label="输入密码" prop="pwd">
               <el-input type="password" v-model="form.pwd" placeholder="请输入内容"></el-input>
             </el-form-item>  
             <el-button type="primary" @click="onSubmit" class="login-btn">登录</el-button>   
@@ -64,9 +71,8 @@
     data() {
       return {
         form: {
-          mail: '',
-          loginpwd: '',
-        }
+        },
+        username: ''
       }
     },
     methods: {
@@ -83,7 +89,7 @@
                 
               }
           }
-          axios.post(window.dev.url + '/login',fd,config)
+          axios.post(window.dev.url + "/api" + '/login',fd,config)
           .then(function(res){
               if (res.code == 0 ) {
                 window.location="./"  
